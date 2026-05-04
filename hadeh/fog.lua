@@ -1,6 +1,6 @@
 
 local fog = {}
-local shader = require 'gatau/shaders'
+local shader = require 'src/shaders'
 function fog:load()
     self.image = love.graphics.newImage("assets/tiles/grass.png")
     self.shader = shader.fog

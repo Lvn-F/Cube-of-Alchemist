@@ -1,7 +1,7 @@
 local function c_Player(world)
     -- player = world:newBSGRectangleCollider(600, 600, 40, 45, 10)
     local Vector = require 'lib/hump/vector'
-    require 'player/skillset/lightShard'
+    require 'src/player/skillset/lightShard'
     player = {
         speed = 500,
 
@@ -16,8 +16,8 @@ local function c_Player(world)
         isDash = "false",
         dashTimer = 0.3,
 
-        x = 100,
-        y =600,
+        x = 875,
+        y =530,
 
         
         spriteSheet = love.graphics.newImage('assets/sprite/player/player_32x32.png'),
@@ -203,10 +203,7 @@ local function c_Player(world)
             self.state = 2
             self.chargeTime = 0
             lightShards.animate.charge:gotoFrame(1)
-            if self.chargeTime == 1 then
-                lightShards.animate.chargeFull:gotoFrame(1)
-                
-            end
+            
         end
     end
     function player:updateCharging(dt)
@@ -237,6 +234,10 @@ local function c_Player(world)
                 lightShards.animate.charge:pause()
             else
                 lightShards.animate.charge:resume()
+            end
+            if self.chargeTime > 0.8 then
+                lightShards.animate.charge:resume()
+                lightShards.animate.chargeFull:update(dt)
             end
         end
     end

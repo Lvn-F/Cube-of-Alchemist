@@ -9,7 +9,7 @@ function love.load()
     love.graphics.setDefaultFilter("nearest", "nearest")
     world = wf.newWorld(0, 0, true)
     map = sti('map/tile.lua')
-    require 'gatau/require'
+    require 'src/require'
     getRequire()
     --
 
@@ -61,7 +61,7 @@ function love.update(dt)
     --     cam.y = (mapH - h/2)
     -- end
     -- cam:lockPosition(player.x, player.y)
-    local debug = require 'gatau/debug'
+    local debug = require 'src/debug'
     debug:player()
      
      fog:update(dt)
@@ -117,7 +117,7 @@ function love.draw()
     end
     -- fog:draw(function()love.graphics.rectangle("fill", 0, 0, 800, 600)end)
     --
-    local debug = require 'gatau/debug'
+    local debug = require 'src/debug'
     -- debug:player()
     --
 end
