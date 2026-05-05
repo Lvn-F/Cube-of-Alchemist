@@ -190,75 +190,16 @@ local function c_Player(world)
     --     end
     -- end
     function player:startCharging()
-        if player.spell == 1 then
-            self.state = 2
-            self.chargeTime = 0
-            self.chargingSpell = {
-                pos = Vector(self.x, self.y),
-                rotation = 0,
-                scale = 1.7
-            }
-        end
-        if player.spell == 2 then
-            self.state = 2
-            self.chargeTime = 0
-            lightShards.animate.charge:gotoFrame(1)
-            
-        end
+        Shadowballs:startCharge()
+        lightShards:startCharge()
     end
     function player:updateCharging(dt)
-        if player.spell == 1 then
-            if self.state == 2 and self.chargingSpell then
-                self.speed = 250
-                self.chargeTime = math.min(self.chargeTime + dt, 1)
-                self.chargingSpell.pos = Vector(self.x , self.y)
-                self.chargingSpell.scale = 1 + self.chargeTime * 0.3
-                local dir = toMouseVector(self.x, self.y)
-                self.chargingSpell.rotation = dir:angleTo(Vector(1,0))
-                if dir.x >= 0 then
-                    self.facing = "right"
-                    self.anim = self.animate.right
-                else
-                    self.facing = "left"
-                    self.anim = self.animate.left
-                end
-            end
-        end
-        if player.spell == 2 and player.state == 2 then
-            self.speed = 200
-            self.chargeTime = math.min(self.chargeTime + dt, 1)
-            lightShards.animate.charge:update(dt)
-            self.anim = self.animate.down
-            lightShards.animate.chargeFull:update(dt)
-            if lightShards.animate.charge.position == 9 then
-                lightShards.animate.charge:pause()
-            else
-                lightShards.animate.charge:resume()
-            end
-            if self.chargeTime > 0.8 then
-                lightShards.animate.charge:resume()
-                lightShards.animate.chargeFull:update(dt)
-            end
-        end
+        Shadowballs:charge(dt)
+        lightShards:charge(dt)
     end
     function player:releaseCharging()
-        if player.spell == 1 then
-            if self.state == 2 and self.chargingSpell then
-                -- self.speed = 500
-                local px, py = self.x, self.y
-                S_shadowball(px, py)
-                self.chargingSpell = nil
-                self.state = 1
-                self.isCharging = "false"
-            end
-        end
-        if player.spell == 2 then
-            lightShards.animate.chargeFull:gotoFrame(1)
-            lightShards.flashActive = true
-            lightShards.flashTimer = 0.2
-            self.state = 1
-            self.isCharging = "false"
-        end
+        Shadowballs:endCharge()
+        lightShards:endCharge()
     end
 
     function player:update(dt)

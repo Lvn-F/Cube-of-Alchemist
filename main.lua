@@ -118,7 +118,7 @@ function love.draw()
     -- fog:draw(function()love.graphics.rectangle("fill", 0, 0, 800, 600)end)
     --
     local debug = require 'src/debug'
-    -- debug:player()
+    debug:player()
     --
 end
 

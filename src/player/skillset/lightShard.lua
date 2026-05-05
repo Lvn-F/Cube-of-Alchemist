@@ -11,34 +11,40 @@ local function c_LightShard()
         charge = anim8.newAnimation(lightShards.grid('1-9',1),lightShards.animSpeed),
         chargeFull = anim8.newAnimation(lightShards.grid('1-9', 2), lightShards.animSpeed)
     }
+    lightShards.anim = lightShards.animate.charge
     
-    -- function lightShard:start()
-    --     player.isCharging = "true"
-    --     player.chargeTime = 0
-    --     lightShards.animate.charge:gotoFrame(1)
-    -- end
-
-    -- function lightShards:release()
-    --     if player.isCharging == "true" then
-    --     end
-    -- end
-
-    -- function lightShard:flashUpdate(dt)
-    --     if self.flashActive then
-    --         self.flashTimer = self.flashTimer - dt
-    --         if self.flashTimer <= 0 then
-    --             self.flashActive = false
-    --         end
-    --     end
-    -- end
-    -- function lightShards:flashDraw()
-    --     if self.flashActive then
-    --         -- local alpha = (self.flashTimer / 0.5) * 255
-    --         love.graphics.setColor(1, 1, 1, 0.5)
-    --         love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    --         love.graphics.setColor(1, 1, 1, 1)
-    --     end
-    -- end
+    function lightShards:startCharge()
+        if player.spell == 2 then
+            player.state = 2
+            player.chargeTime = 0
+            lightShards.animate.charge:gotoFrame(1)
+        end
+    end
+    function lightShards:charge(dt)
+        if player.spell == 2 and player.state == 2 then
+            player.speed = 200
+            player.chargeTime = math.min(player.chargeTime + dt, 1)
+            player.anim = player.animate.down
+            lightShards.anim:update(dt)
+            if lightShards.animate.charge.position >= 9 then
+                lightShards.animate.charge:pause()
+                -- lightShards.anim = lightShards.animate.chargeFull
+                lightShards.animate.chargeFull:resume()
+            else
+                lightShards.animate.charge:resume()
+                lightShards.animate.chargeFull:resume()
+            end
+        end
+    end
+    function lightShards:endCharge()
+        if player.spell == 2 then
+            lightShards.animate.chargeFull:gotoFrame(1)
+            lightShards.flashActive = true
+            lightShards.flashTimer = 0.2
+            player.state = 1
+            player.isCharging = "false"
+        end
+    end
     
     function lightShards:update(dt)
         if self.flashActive then

@@ -70,6 +70,50 @@ local function c_Shadowball(world)
         table.insert(Shadowballs, shadowball)
     end
 
+    function Shadowballs:startCharge()
+        if player.spell == 1 then
+            player.state = 2
+            player.chargeTime = 0
+            player.chargingSpell = {
+                pos = Vector(self.x, self.y),
+                rotation = 0,
+                scale = 1.7
+            }
+        end
+    end
+    function Shadowballs:charge(dt)
+        if player.spell == 1 then
+            if player.state == 2 and player.chargingSpell then
+                player.speed = 250
+                player.chargeTime = math.min(player.chargeTime + dt, 1)
+                player.chargingSpell.pos = Vector(player.x , player.y)
+                player.chargingSpell.scale = 1 + player.chargeTime * 0.3
+                local dir = toMouseVector(player.x, player.y)
+                player.chargingSpell.rotation = dir:angleTo(Vector(1,0))
+                if dir.x >= 0 then
+                    player.facing = "right"
+                    player.anim = player.animate.right
+                else
+                    player.facing = "left"
+                    player.anim = player.animate.left
+                end
+            end
+        end
+    end
+    function Shadowballs:endCharge()
+        if player.spell == 1 then
+            if player.state == 2 and player.chargingSpell then
+                -- self.speed = 500
+                local px, py = player.x, player.y
+                S_shadowball(px, py)
+                player.chargingSpell = nil
+                player.state = 1
+                player.isCharging = "false"
+            end
+        end
+    end
+
+
     function Shadowballs:update(dt)
         self.anim = Shadowballs.animate.spawn
         self.anim:update(dt)
