@@ -17,7 +17,7 @@ local function c_LightShard()
         if player.spell == 2 then
             player.state = 2
             player.chargeTime = 0
-            lightShards.animate.charge:gotoFrame(1)
+            self.animate.charge:gotoFrame(1)
         end
     end
     function lightShards:charge(dt)
@@ -25,22 +25,15 @@ local function c_LightShard()
             player.speed = 200
             player.chargeTime = math.min(player.chargeTime + dt, 1)
             player.anim = player.animate.down
-            lightShards.anim:update(dt)
-            if lightShards.animate.charge.position >= 9 then
-                lightShards.animate.charge:pause()
-                -- lightShards.anim = lightShards.animate.chargeFull
-                lightShards.animate.chargeFull:resume()
-            else
-                lightShards.animate.charge:resume()
-                lightShards.animate.chargeFull:resume()
-            end
+            self.anim:update(dt)
         end
     end
     function lightShards:endCharge()
         if player.spell == 2 then
-            lightShards.animate.chargeFull:gotoFrame(1)
-            lightShards.flashActive = true
-            lightShards.flashTimer = 0.2
+            -- self.animate.chargeFull:gotoFrame(1)
+            self.anim = self.animate.charge
+            self.flashActive = true
+            self.flashTimer = 0.2
             player.state = 1
             player.isCharging = "false"
         end
@@ -57,9 +50,13 @@ local function c_LightShard()
     
     function lightShards:draw()
         if player.state == 2 and player.spell == 2 then
-            lightShards.animate.charge:draw(self.sprite, player.x, player.y + 20, nil, 2, 2, 32, 32)
+            self.anim:draw(self.sprite, player.x, player.y + 10, nil, 2, 2, 32, 32)
+                if self.animate.charge.position == 9 then
+                    self.anim = self.animate.chargeFull
+                    self.anim:draw(self.sprite, player.x, player.y + 10, nil, 2, 2, 32, 32)
+                end
         elseif self.flashActive then
-            lightShards.animate.chargeFull:draw(self.sprite, player.x, player.y + 20, nil, 2, 2, 32, 32)
+            self.animate.chargeFull:draw(self.sprite, player.x, player.y + 20, nil, 2, 2, 32, 32)
         else
             player.anim:draw(player.spriteSheet, player.x, player.y, nil, 3, nil, 16, 22)
         end

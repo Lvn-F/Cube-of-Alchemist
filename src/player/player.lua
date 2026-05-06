@@ -7,12 +7,12 @@ local function c_Player(world)
 
         spell = 1,
 
-        -- 1 = normal
+        -- 1 = normal --
         state = 1,
-        -- 2 = charging
+        -- 2 = charging --
         isCharging = "false",
         chargeTime = 0,
-        -- 3 = dash
+        -- 3 = dash --
         isDash = "false",
         dashTimer = 0.3,
 
@@ -22,7 +22,6 @@ local function c_Player(world)
         
         spriteSheet = love.graphics.newImage('assets/sprite/player/player_32x32.png'),
         animSpeed = 0.15,
-        -- facingRot = 0,
         baseDamping = 0,
         key = "nil"
     }
@@ -39,8 +38,9 @@ local function c_Player(world)
         left = anim8.newAnimation(player.grid('1-4', 2), player.animSpeed),
         up = anim8.newAnimation(player.grid('1-4', 3), player.animSpeed),
         down = anim8.newAnimation(player.grid('1-4', 4), player.animSpeed),
-        dash = anim8.newAnimation(player.grid('1-2', 5), player.animSpeed),
-        dashL = anim8.newAnimation(player.grid('1-2', 6), player.animSpeed)
+        dash = anim8.newAnimation(player.grid('1-1', 5), player.animSpeed),
+        dashL = anim8.newAnimation(player.grid('1-1', 6), player.animSpeed),
+        shadow = anim8.newAnimation(player.grid('1-1', 7), player.animSpeed)
     }
     player.anim = player.animate.down
     player.facing = "down"
@@ -52,12 +52,6 @@ local function c_Player(world)
         vxPlayer = 0
         vyPlayer = 0
         local isMoving = false
-        -- local dash = 100
-        -- local cooldown = 1
-
-        -- local lastDash = 0
-        -- lastDash = lastDash - dt
-        --
 
         --
         if love.keyboard.isDown('d') then
@@ -91,30 +85,6 @@ local function c_Player(world)
         if isMoving == false then
             self.anim:gotoFrame(1)
         end
-        --
-
-        --
-        -- if love.keyboard.isDown('lshift') and lastDash < 0 then
-        --     vx = vx * 1.5
-        --     vy = vy * 1.5
-        --     lastDash = self.cooldown
-        -- end
-        -- if love.keyboard.isDown("space") and lastDash < 0 then
-        --     if player.anim == player.animate.right then
-        --         player.x = vx + dash + player.x
-        --     end
-        --     if love.keyboard.isDown("a") then
-        --         player.x = player.x - dash
-        --     end
-        --     if love.keyboard.isDown("w") then
-        --         player.y = player.y - dash
-        --     end
-        --     if love.keyboard.isDown("s") then
-        --         player.y = player.y + dash
-        --     end
-
-        --     lastDash = self.cooldown
-        -- end
         
         self.collider:setLinearVelocity(vxPlayer * dt * 40, vyPlayer * dt * 40)
         -- self.collider:setPosition(vx, vy)
@@ -180,15 +150,7 @@ local function c_Player(world)
             end
         end
     end
-    -- function player:chargeLogic()
-        
-    -- end
-    -- function player:useSpell(dt)
-    --     local px, py = self.x, self.y
-    --     if self.spell == 1 then
-    --         S_shadowball(self.pos.x, self.pos.y)
-    --     end
-    -- end
+    
     function player:startCharging()
         Shadowballs:startCharge()
         lightShards:startCharge()
@@ -214,6 +176,7 @@ local function c_Player(world)
 
 
     function player:draw()
+        self.animate.shadow:draw(self.spriteSheet, self.x, self.y + 30, nil, 2.5, nil, 16, 23)
         self.anim:draw(self.spriteSheet, self.x, self.y, nil, 2.5, nil, 16, 23)
         if self.state == 2 then
             if self.spell == 1 then
