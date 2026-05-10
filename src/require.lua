@@ -4,6 +4,7 @@ function getRequire()
     Fog = require("hadeh/fog")
     fog = Fog
     fog:load()
+    drawSort = require 'src/drawSort'
     
     
     shaders = require 'src/shaders'
@@ -20,6 +21,7 @@ function getRequire()
     c_LightShard = require 'src/player/skillset/lightShard'
     
     c_Player = require 'src/player/player'
+    require 'src/player/skillset/aa_skillSetting'
     
     c_Fire = require 'src/object/fire'
 

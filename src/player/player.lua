@@ -1,7 +1,6 @@
 local function c_Player(world)
     -- player = world:newBSGRectangleCollider(600, 600, 40, 45, 10)
     local Vector = require 'lib/hump/vector'
-    require 'src/player/skillset/lightShard'
     player = {
         speed = 500,
 
@@ -19,7 +18,8 @@ local function c_Player(world)
         x = 875,
         y =530,
 
-        
+        equipment = {spell = nil, armor = nil, accessory = nil},
+
         spriteSheet = love.graphics.newImage('assets/sprite/player/player_32x32.png'),
         animSpeed = 0.15,
         baseDamping = 0,
@@ -174,22 +174,18 @@ local function c_Player(world)
         self.anim:update(dt)
     end
 
-
     function player:draw()
         self.animate.shadow:draw(self.spriteSheet, self.x, self.y + 30, nil, 2.5, nil, 16, 23)
         self.anim:draw(self.spriteSheet, self.x, self.y, nil, 2.5, nil, 16, 23)
+    end
+    function player:drawSpell()
         if self.state == 2 then
             if self.spell == 1 then
                 Shadowballs.anim:draw(Shadowballs.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,Shadowballs.projectile:getWidth()/120,Shadowballs.projectile:getHeight()/2)
             elseif self.spell == 2 then
                 lightShards:draw(player.x, player.y)
-                
             end
         end
-        
-        -- for _, sb in ipairs(Shadowballs) do
-        --     sb:draw()
-        -- end
     end
     return player
 end

@@ -1,4 +1,3 @@
-
 function love.load()
     -- require
     require 'lib/libAll'
@@ -64,7 +63,8 @@ function love.update(dt)
     local debug = require 'src/debug'
     debug:player()
      
-     fog:update(dt)
+    fog:update(dt)
+    map:update(dt)
 end
 
 function love.draw()
@@ -77,24 +77,19 @@ function love.draw()
         -- love.graphics.setShader(shaders.white)
         love.graphics.push()
             love.graphics.scale(3,3)
-            -- map:drawLayer(map.layers["base"])
-            -- map:drawLayer(map.layers["base1"])
-            -- map:drawLayer(map.layers["environtmentBottom"])
             drawBefore()
-            
         love.graphics.pop()
+        drawSort.draw(map, 3)
         -- love.graphics.setShader()
         -- love.graphics.setShader(shaders.white)
         
-        fire:draw()
-        Shadowballs:draw()
+        -- fire:draw()
+        -- Shadowballs:draw()
         
-        wolf:draw()
-        player:draw()
-        love.graphics.push()
-            love.graphics.scale(2,2)
-            
-        love.graphics.pop()
+        -- wolf:draw()
+        -- player:draw()
+        player:drawSpell()
+        
         
         -- love.graphics.setShader()
         -- world:draw()

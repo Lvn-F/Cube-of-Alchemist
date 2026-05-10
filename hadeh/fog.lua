@@ -1,4 +1,3 @@
-
 local fog = {}
 local shader = require 'src/shaders'
 function fog:load()
