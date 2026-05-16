@@ -1,4 +1,5 @@
 function updateGame(dt)
+    map:update(dt)
     -- player
     player:update(dt)
 
@@ -8,6 +9,7 @@ function updateGame(dt)
 
     -- Object
     fire:update(dt)
+    grass:update(dt)
     --
 
     -- entities

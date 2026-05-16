@@ -80,7 +80,7 @@ function drawSort.draw(map, scale)
             y        = wy,
             isScaled = false,
             draw     = function()
-                wolf.anim:draw(wolf.spriteSheet, wx, wy, nil, 4, nil, 16, 16)
+                wolf:draw()
             end
         })
     end
@@ -90,6 +90,11 @@ function drawSort.draw(map, scale)
         y        = fire.y,
         isScaled = false,
         draw     = function() fire:draw() end
+    })
+    table.insert(drawables, {
+        y        = grass.y,
+        isScaled = false,
+        draw     = function() grass:draw() end
     })
 
     -- ── Shadowballs ───────────────────────────────────────────────────────

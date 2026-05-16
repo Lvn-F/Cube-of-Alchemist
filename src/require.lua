@@ -21,9 +21,9 @@ function getRequire()
     c_LightShard = require 'src/player/skillset/lightShard'
     
     c_Player = require 'src/player/player'
-    require 'src/player/skillset/aa_skillSetting'
     
     c_Fire = require 'src/object/fire'
+    c_Grass = require 'src/object/grass'
 
     c_wolf = require 'src/entities/wolf'
 end

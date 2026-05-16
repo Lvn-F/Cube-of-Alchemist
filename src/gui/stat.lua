@@ -2,7 +2,7 @@ local function stats(player)
     require 'src/gui/guiAssets'
     playerStat = {
         maxHealthContainer = 4,
-        healthContainer = maxHealthContainer,
+        -- healthContainer = maxHealthContainer,
         health = 4
     }
     loadGuiAssets()

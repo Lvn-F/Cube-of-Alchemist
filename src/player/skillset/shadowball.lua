@@ -52,7 +52,7 @@ local function c_Shadowball(world)
         shadowball.collider = world:newBSGRectangleCollider(x - 64/2, y - 64/2, 64, 64, 16)
         shadowball.collider:setCollisionClass("Projectile")
         -- shadowball.collider:setObject(Projectile)
-        shadowball.collider:setLinearVelocity(dir.x + shadowball.speed, dir.y + shadowball.speed)
+        shadowball.collider:setLinearVelocity(dir.x * shadowball.speed, dir.y * shadowball.speed)
         
         function shadowball:update(dt)
             self.timer = self.timer - dt
@@ -108,7 +108,7 @@ local function c_Shadowball(world)
                 S_shadowball(px, py)
                 player.chargingSpell = nil
                 player.state = 1
-                player.isCharging = "false"
+                player.isCharging = false
             end
         end
     end

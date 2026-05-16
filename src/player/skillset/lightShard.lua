@@ -35,7 +35,7 @@ local function c_LightShard()
             self.flashActive = true
             self.flashTimer = 0.2
             player.state = 1
-            player.isCharging = "false"
+            player.isCharging = false
         end
     end
     

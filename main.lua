@@ -17,6 +17,7 @@ function love.load()
     shadowball = c_Shadowball(world)
     lightShards = c_LightShard(world)
     fire = c_Fire(world)
+    grass = c_Grass(world)
     wolf = c_wolf(world)
     --
 
@@ -61,14 +62,15 @@ function love.update(dt)
     -- end
     -- cam:lockPosition(player.x, player.y)
     local debug = require 'src/debug'
-    debug:player()
+    -- debug:player()
      
     fog:update(dt)
-    map:update(dt)
+    
 end
 
 function love.draw()
     --
+
     love.graphics.setColor(1, 1, 1, 1)
     --
     

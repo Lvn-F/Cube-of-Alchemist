@@ -9,10 +9,10 @@ local function c_Player(world)
         -- 1 = normal --
         state = 1,
         -- 2 = charging --
-        isCharging = "false",
+        isCharging = false,
         chargeTime = 0,
         -- 3 = dash --
-        isDash = "false",
+        isDash = false,
         dashTimer = 0.3,
 
         x = 875,
@@ -96,10 +96,11 @@ local function c_Player(world)
 
     -- spell selection
     function player:spellSelect()
-        if player.spell == 0 then
-            player.spell = 2
+        local maxSpells = 2
+        if player.spell < 1 then
+            player.spell = maxSpells
         end
-        if player.spell == 3 then
+        if player.spell > maxSpells then
             player.spell = 1
         end
     end
@@ -108,14 +109,14 @@ local function c_Player(world)
     --
     function player:handleState(dt)
         if player.state == 1 then
-            player.isCharging = "false"
+            player.isCharging = false
             player.speed = 500
         end
 
         if player.state == 2 then
-            player.isCharging = "true"
+            player.isCharging = true
         end
-        if player.isCharging == "true" then
+        if player.isCharging == true then
             player.chargeTime = player.chargeTime + dt
             if player.chargeTime > 1 then
                 player.chargeTime = 1
@@ -126,8 +127,8 @@ local function c_Player(world)
 
         if player.state == 3 then
             player.dashTimer = player.dashTimer - dt
-            isDash = "true"
-            if isDash == "true" then
+            player.isDash = true
+            if player.isDash == true then
                 if love.keyboard.isDown('d') or love.keyboard.isDown('a') then
                     self.speed = 1000
                     if player.facing == "right" then
