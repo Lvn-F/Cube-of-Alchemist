@@ -61,11 +61,15 @@ local function c_Shadowball(world)
                 self.collider:destroy()
                 return
             end
+            if self.speed < self.speed then
+                self.dead = true
+                self.collider:destroy()
+            end
             -- self.x = self.x + self.dir.x * self.speed * dt
             -- self.y = self.y + self.dir.y * self.speed * dt
             self.pos = self.pos + self.dir * self.speed * dt
-            shadowball.collider:setPosition(self.pos.x, self.pos.y)
-            -- self.pos.x, self.pos.y = self.collider:getPosition()
+            -- shadowball.collider:setPosition(self.pos.x, self.pos.y)
+            self.pos.x, self.pos.y = self.collider:getPosition()
         end
         table.insert(Shadowballs, shadowball)
     end

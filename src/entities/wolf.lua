@@ -44,6 +44,7 @@ local function c_wolf()
         wolfs.collider:setFixedRotation(true)
         wolfs.collider:setType('dynamic')
         wolfs.collider:setLinearVelocity(wolfs.dirX * wolfs.speed, wolfs.dirY * wolfs.speed)
+        wolfs.x, wolfs.y = wolfs.collider:getPosition()
         table.insert(wolf.instance, wolfs)
     end
 
@@ -86,8 +87,9 @@ local function c_wolf()
             if wolfs.x > 1000 then wolfs.x = 1000; wolfs.dirX = -1 end
             if wolfs.y > 1000 then wolfs.y = 1000; wolfs.dirY = -1 end
             
-            wolfs.collider:setPosition(wolfs.x, wolfs.y)
+            -- wolfs.collider:setPosition(wolfs.x, wolfs.y)
             wolfs.collider:setLinearVelocity(wolfs.dirX * wolfs.speed, wolfs.dirY * wolfs.speed)
+            wolfs.x, wolfs.y = wolfs.collider:getPosition()
             
             wolfs.anim:update(dt) 
         end
