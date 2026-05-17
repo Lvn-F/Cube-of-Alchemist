@@ -76,44 +76,27 @@ function love.draw()
     
     --
     cam:attach()
-        -- love.graphics.setShader(shaders.white)
         love.graphics.push()
             love.graphics.scale(3,3)
             drawBefore()
         love.graphics.pop()
         drawSort.draw(map, 3)
-        -- love.graphics.setShader()
-        -- love.graphics.setShader(shaders.white)
-        
-        -- fire:draw()
-        -- Shadowballs:draw()
-        
-        -- wolf:draw()
-        -- player:draw()
+
         player:drawSpell()
         
-        
-        -- love.graphics.setShader()
         -- world:draw()
         love.graphics.push()
             love.graphics.scale(3,3)
-            -- map:drawLayer(map.layers["environtmentTop"])
             drawAfter()
         love.graphics.pop()
-        -- love.graphics.setShader(shaders.light)
-        --     shaders:darken()
-        -- love.graphics.setShader()
     --
     cam:detach()
     playerStat:draw()
     if lightShards.flashActive then
-        -- local alpha = player.chargeTime / 0.5 
         love.graphics.setColor(1, 1, 1, 0.5)
         love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
         love.graphics.setColor(1, 1, 1, 1)
     end
-    -- fog:draw(function()love.graphics.rectangle("fill", 0, 0, 800, 600)end)
-    --
     local debug = require 'src/debug'
     debug:player()
     --

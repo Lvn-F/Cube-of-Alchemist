@@ -60,12 +60,6 @@ local function c_LightShard()
         else
             player.anim:draw(player.spriteSheet, player.x, player.y, nil, 3, nil, 16, 22)
         end
-        
-
-        -- if self.flashActive then
-        --     lightShards:flashDraw()
-        -- end
-        -- self:flashDraw()
     end
     return lightShards
 end

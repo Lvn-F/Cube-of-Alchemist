@@ -87,7 +87,6 @@ local function c_wolf()
             if wolfs.x > 1000 then wolfs.x = 1000; wolfs.dirX = -1 end
             if wolfs.y > 1000 then wolfs.y = 1000; wolfs.dirY = -1 end
             
-            -- wolfs.collider:setPosition(wolfs.x, wolfs.y)
             wolfs.collider:setLinearVelocity(wolfs.dirX * wolfs.speed, wolfs.dirY * wolfs.speed)
             wolfs.x, wolfs.y = wolfs.collider:getPosition()
             
@@ -97,7 +96,6 @@ local function c_wolf()
 
     function wolf:draw()
         for _, wolfs in ipairs(self.instance) do
-            -- FIX 4: Draw from wolfs.anim, not self.anim
             wolfs.anim:draw(self.spriteSheet, wolfs.x, wolfs.y, nil, 4, nil, 16, 16)
         end
     end

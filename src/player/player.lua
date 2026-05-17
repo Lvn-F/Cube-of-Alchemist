@@ -1,5 +1,4 @@
 local function c_Player(world)
-    -- player = world:newBSGRectangleCollider(600, 600, 40, 45, 10)
     local Vector = require 'lib/hump/vector'
     player = {
         speed = 500,
@@ -7,11 +6,11 @@ local function c_Player(world)
         spell = 1,
 
         -- 1 = normal --
-        state = 1,
         -- 2 = charging --
+        -- 3 = dash --
+        state = 1,
         isCharging = false,
         chargeTime = 0,
-        -- 3 = dash --
         isDash = false,
         dashTimer = 0.3,
 
@@ -87,7 +86,6 @@ local function c_Player(world)
         end
         
         self.collider:setLinearVelocity(vxPlayer * dt * 40, vyPlayer * dt * 40)
-        -- self.collider:setPosition(vx, vy)
         self.x = self.collider:getX()
         self.y = self.collider:getY()
         self.pos = Vector(self.x, self.y)
