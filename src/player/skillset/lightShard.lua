@@ -30,6 +30,11 @@ local function c_LightShard()
     end
     function lightShards:endCharge()
         if player.spell == 2 then
+            if player.chargeTime <= 0.9 then
+                player.isCharging = false
+                player.state = 1
+                return
+            end
             -- self.animate.chargeFull:gotoFrame(1)
             self.anim = self.animate.charge
             self.flashActive = true

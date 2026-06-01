@@ -19,7 +19,7 @@ local function c_Grass()
     function grass:draw()
         self.anim:draw(self.spriteSheet, self.x, self.y -32, nil, 2, nil, 16, 32)
         self.anim:draw(self.spriteSheet, self.x - 30, self.y -32, nil, 2, nil, 16, 32)
-        self.anim:draw(self.spriteSheet, self.x - 16, self.y -32, nil, 2, nil, 16, 32)
+        self.anim:draw(self.spriteSheet, self.x - 60, self.y -64, nil, 2, nil, 16, 32)
         self.anim:draw(self.spriteSheet, self.x, self.y -32, nil, 2, nil, 16, 32)
     end
     return grass

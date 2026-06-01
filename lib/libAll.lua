@@ -5,5 +5,6 @@ function libAll()
     sti = require 'lib/sti'
     vector = require "lib/hump/vector"
     cameraa = require 'lib/hump/camera'
+    drawSort = require 'lib/drawSort'
     cam = camera()
 end
