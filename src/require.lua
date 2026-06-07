@@ -35,6 +35,7 @@ function getRequire()
     player = c_Player(world)
     
     -- Object
+    require 'src/object/plant'
     c_Fire = require 'src/object/fire'
     c_Grass = require 'src/object/grass'
     -- Object Call
