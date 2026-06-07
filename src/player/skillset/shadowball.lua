@@ -61,6 +61,8 @@ local function c_Shadowball(world)
                 rotation = 0,
                 scale = 1.7
             }
+        else
+            return
         end
     end
     function Shadowballs:charge(dt)

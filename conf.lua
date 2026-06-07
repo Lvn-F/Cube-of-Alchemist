@@ -1,7 +1,7 @@
 function love.conf(t)
     t.window.title = "Cube of Alchemist"
-    t.window.width = 1200
-    t.window.height = 800
+    t.window.width = 1550
+    t.window.height = 870
     t.window.minwidth = 900
     t.window.minheight = 600
     t.window.resizable = true

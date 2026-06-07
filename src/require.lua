@@ -4,7 +4,11 @@ function getRequire()
     Fog = require("hadeh/fog")
     fog = Fog
     fog:load()
-    
+
+    --
+    -- inventory = require 'src/invensystem/inventory'
+    -- item = require 'src/invensystem/item'
+    --
     
     shaders = require 'src/shaders'
     require 'src/update'

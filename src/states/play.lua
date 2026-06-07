@@ -53,6 +53,11 @@ function PlayState:keypressed(key)
         GS.push(playTest)
         return
     end
+    if key == 'tab' then
+        local pauseState = require 'src/states/pause'
+        GS.push(pauseState)
+        return
+    end
 
     if key == 'space' and player.state == 1 then
         player.state = 3

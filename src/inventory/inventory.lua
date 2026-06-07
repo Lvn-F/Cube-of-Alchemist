@@ -1,0 +1,7 @@
+-- function inventory.new(w, h, hbSize)
+--     local self = {}
+--     setmetatable(self, inventory)
+--     self.w = w
+--     self.h = h
+--     self.arr = utils.new
+-- end
