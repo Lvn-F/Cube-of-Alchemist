@@ -19,7 +19,7 @@ local function c_Player(world)
 
         equipment = {spell = nil, armor = nil, accessory = nil},
 
-        spriteSheet = love.graphics.newImage('assets/sprite/player/player_32x32.png'),
+        spriteSheet = love.graphics.newImage(pathImg.player .. 'player_32x32.png'),
         animSpeed = 0.13,
         baseDamping = 0,
         key = "nil"

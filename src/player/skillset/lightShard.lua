@@ -1,6 +1,6 @@
 local function c_LightShard()
     lightShards = {
-        sprite = love.graphics.newImage('assets/sprite/player/skill/lightShard.png'),
+        sprite = love.graphics.newImage(pathImg.skill .. 'lightShard.png'),
         animSpeed = 0.1,
         active = false,
         flashActive = false,

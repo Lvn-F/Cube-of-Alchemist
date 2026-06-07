@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="102">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="110">
  <editorsettings>
   <export target="tile.lua" format="lua"/>
  </editorsettings>
@@ -242,13 +242,11 @@
   <object id="73" x="225.636" y="159.273" width="60" height="9.63636"/>
   <object id="74" x="229.273" y="128.364" width="116.727" height="29.8182"/>
   <object id="75" x="311.455" y="159.273" width="38.7273" height="9.45455"/>
-  <object id="76" x="170.5" y="416.75" width="10.5" height="10.75"/>
-  <object id="77" x="191.5" y="416.75" width="7" height="13.5"/>
-  <object id="78" x="199.5" y="416" width="12.75" height="10.25"/>
-  <object id="79" x="182" y="417" width="9.25" height="7.75"/>
+  <object id="76" x="170.5" y="412.25" width="10.5" height="15.25"/>
+  <object id="77" x="191.5" y="414.75" width="7" height="15.5"/>
+  <object id="78" x="199.5" y="413.273" width="12.75" height="12.9773"/>
+  <object id="79" x="182" y="413.727" width="9.25" height="11.0227"/>
   <object id="80" x="186.5" y="425.75" width="4.25" height="3.5"/>
-  <object id="84" x="496" y="1.25" width="95.5" height="307.25"/>
-  <object id="85" x="496" y="329.25" width="95.75" height="438"/>
   <object id="88" x="458.818" y="261.545" width="15.5455" height="21.3636"/>
   <object id="89" x="465.727" y="283.455" width="8.54545" height="1.27273"/>
   <object id="90" x="454.545" y="263.545" width="3.63636" height="18.0909"/>
@@ -261,5 +259,20 @@
   <object id="99" x="70.4545" y="328.545" width="5.45455" height="1.90909"/>
   <object id="100" x="63.1818" y="328.091" width="1.27273" height="2.27273"/>
   <object id="101" x="53.4545" y="328.545" width="5.63636" height="1.63636"/>
+ </objectgroup>
+ <objectgroup id="15" name="mapPassable">
+  <object id="84" x="496" y="1.25" width="95.5" height="307.25"/>
+  <object id="85" x="496" y="329.25" width="95.75" height="438"/>
+ </objectgroup>
+ <objectgroup id="14" name="objects">
+  <object id="105" name="wolf" type="wolf" x="82" y="560">
+   <point/>
+  </object>
+  <object id="108" name="wolf" type="wolf" x="143.5" y="564">
+   <point/>
+  </object>
+  <object id="109" name="wolf" type="wolf" x="111" y="606.5">
+   <point/>
+  </object>
  </objectgroup>
 </map>

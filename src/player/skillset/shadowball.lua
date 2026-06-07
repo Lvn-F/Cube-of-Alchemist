@@ -3,7 +3,7 @@ local function c_Shadowball(world)
     local Camera = require 'lib/hump/camera'
     
     Shadowballs = {
-        projectile = love.graphics.newImage('assets/sprite/player/skill/Shadowballs.png')
+        projectile = love.graphics.newImage(pathImg.skill .. 'Shadowballs.png')
     }
     Shadowballs.grid = anim8.newGrid(64, 64, Shadowballs.projectile:getWidth(), Shadowballs.projectile:getHeight())
     Shadowballs.animate = {

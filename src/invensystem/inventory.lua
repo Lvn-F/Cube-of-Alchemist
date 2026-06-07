@@ -3,16 +3,12 @@ local utils = require "src/invensystem/utils"
 inventory = {}
 inventory.__index = inventory
 
-function inventory.new(w,h, hotbarSize)
+function inventory.new(w, h)
     local self = {}
     setmetatable(self,inventory)
     self.w = w
     self.h = h
     self.arr = utils.newEmptyArray(w,h,0)
-    -- self.hotbar = {}
-    -- for i = 1, (hotbarSize or 8) do
-    --     self.hotbar[i] = 0
-    -- end
     return self
 end
 
@@ -30,7 +26,7 @@ function inventory:addItem(item)
     end
 end
 
-function inventory:replace(x1,y1,x2,y2)
+function inventory:replace(x1, y1, x2, y2)
     local ph = self.arr[y1][x1]
     self.arr[y1][x1] = self.arr[y2][x2]
     self.arr[y2][x2] = ph

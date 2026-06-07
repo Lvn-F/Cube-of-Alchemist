@@ -6,8 +6,14 @@ function getRequire()
     fog:load()
 
     --
-    -- inventory = require 'src/invensystem/inventory'
-    -- item = require 'src/invensystem/item'
+    pathImg = {
+        consumable = "assets/sprite/item/consumable/",
+        collectible = "assets/sprite/item/collectible/",
+        player = "assets/sprite/player/",
+        skill = "assets/sprite/player/skill/",
+        plant = "assets/sprite/object/plant/",
+        gui = "assets/sprite/gui/"
+    }
     --
     
     shaders = require 'src/shaders'

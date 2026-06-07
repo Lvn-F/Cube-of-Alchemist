@@ -6,7 +6,9 @@ local inv = inventory.new(6, 3)
 local inventoryGui = require 'src/invensystem/gui'
 inventoryGui:setInventory(inv, 50, 50)
 
-inv:addItem(item.new("Red Potion", "assets/sprite/item/consumable/potion.png", "Restore small amount of health"))
+inv:addItem(item.new("Red Potion", pathImg.consumable .. "potion.png", "Restore small amount of health"))
+inv:addItem(item.new("herb", pathImg.collectible .. "herb.png", "Basic ingredient for healing potion"))
+inv:addItem(item.new("Fire Herb", pathImg.collectible .. "fireHerb.png", "Hot enough to make fire"))
 guiMap = sti('map/gui2.lua')
 function pauseState:load()
     -- local inventoryGui = require 'src/invensystem/inventoryGui'
@@ -20,7 +22,7 @@ local offsetX = (w - guiW) / 2
 local offsetY = (h - guiH) / 2
 function pauseState:update(dt)
     -- world:update(dt)
-    updateGame(dt)
+    -- updateGame(dt)
 
     cam:lookAt(player.x, player.y)
     local h = love.graphics.getHeight()
