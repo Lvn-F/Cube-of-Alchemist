@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="110">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="116">
  <editorsettings>
   <export target="tile.lua" format="lua"/>
  </editorsettings>
@@ -272,6 +272,12 @@
    <point/>
   </object>
   <object id="109" name="wolf" type="wolf" x="111" y="606.5">
+   <point/>
+  </object>
+  <object id="111" name="herbPlant" x="365" y="205">
+   <point/>
+  </object>
+  <object id="112" name="fireHerbPlant" x="402.5" y="224">
    <point/>
   </object>
  </objectgroup>

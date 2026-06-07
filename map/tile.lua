@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 16,
-  nextobjectid = 110,
+  nextobjectid = 116,
   properties = {
     ["ySortOffset"] = -16
   },
@@ -990,6 +990,32 @@ return {
           shape = "point",
           x = 111,
           y = 606.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 111,
+          name = "herbPlant",
+          type = "",
+          shape = "point",
+          x = 365,
+          y = 205,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 112,
+          name = "fireHerbPlant",
+          type = "",
+          shape = "point",
+          x = 402.5,
+          y = 224,
           width = 0,
           height = 0,
           rotation = 0,
