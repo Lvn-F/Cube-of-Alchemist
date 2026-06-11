@@ -94,7 +94,7 @@ local function c_Player(world)
 
     -- spell selection
     function player:spellSelect()
-        local maxSpells = 2
+        local maxSpells = 3
         if player.spell < 1 then
             player.spell = maxSpells
         end
@@ -153,14 +153,17 @@ local function c_Player(world)
     function player:startCharging()
         Shadowballs:startCharge()
         lightShards:startCharge()
+        WindCharges:startCharge()
     end
     function player:updateCharging(dt)
         Shadowballs:charge(dt)
         lightShards:charge(dt)
+        WindCharges:charge(dt)
     end
     function player:releaseCharging()
         Shadowballs:endCharge()
         lightShards:endCharge()
+        WindCharges:endCharge()
     end
 
     function player:update(dt)
@@ -169,6 +172,8 @@ local function c_Player(world)
         player:handleState(dt)
         Shadowballs.anim = Shadowballs.animate.spawn
         Shadowballs.anim:update(dt)
+        WindCharges.anim = WindCharges.animate.spawn
+        WindCharges.anim:update(dt)
         player:updateCharging(dt)
         self.anim:update(dt)
     end
@@ -183,6 +188,8 @@ local function c_Player(world)
                 Shadowballs.anim:draw(Shadowballs.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,Shadowballs.projectile:getWidth()/120,Shadowballs.projectile:getHeight()/2)
             elseif self.spell == 2 then
                 lightShards:draw(player.x, player.y)
+            elseif self.spell == 3 then
+                WindCharges.anim:draw(WindCharges.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,WindCharges.projectile:getWidth()/120,WindCharges.projectile:getHeight()/2)
             end
         end
     end

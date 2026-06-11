@@ -13,17 +13,27 @@ function inventory.new(w, h)
 end
 
 function inventory:addItem(item)
+    for y = 1, #self.arr do
+        for x = 1, #self.arr[1] do
+            local slot = self.arr[y][x]
+            if slot ~= 0 and slot.item.name == item.name then
+                slot.count = slot.count + 1
+                return true
+            end
+        end
+    end
     local stop = false
-    for y=1,#self.arr do
-        for x=1,#self.arr[1] do
+    for y = 1, #self.arr do
+        for x = 1, #self.arr[1] do
             if self.arr[y][x] == 0 then
-                self.arr[y][x] = item
+                self.arr[y][x] = {item = item, count = 1}
                 stop = true
                 break
             end
         end
         if stop then break end
     end
+    return stop
 end
 
 function inventory:replace(x1, y1, x2, y2)

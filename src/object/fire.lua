@@ -18,7 +18,7 @@ local function c_Fire()
 
     function fire:draw()
         -- self.anim:draw(self.spriteSheet, self.x, self.y -32, nil, 2, nil, 16, 32)
-        self.anim:draw(self.spriteSheet, self.x - 50, self.y -32, nil, 2, nil, 16, 32)
+        -- self.anim:draw(self.spriteSheet, self.x - 50, self.y -32, nil, 2, nil, 16, 32)
     end
     return fire
 end

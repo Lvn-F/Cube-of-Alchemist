@@ -1,5 +1,9 @@
 local PlayState = {}
-
+inventory = require 'src/invensystem/inventory'
+item = require 'src/invensystem/item'
+inv = inventory.new(6, 3)
+inventoryGui = require 'src/invensystem/gui'
+inventoryGui:setInventory(inv, 50, 50)
 function PlayState:update(dt)
     world:update(dt)
     updateGame(dt)
@@ -22,6 +26,7 @@ function PlayState:draw()
             drawBefore()
         love.graphics.pop()
 
+        herbs:draw()
         drawSort.draw(map, 3)
         player:drawSpell()
 
@@ -30,6 +35,7 @@ function PlayState:draw()
             drawAfter()
         love.graphics.pop()
     cam:detach()
+    -- shaders:whiten()
 
     playerStat:draw()
 
@@ -68,6 +74,10 @@ function PlayState:keypressed(key)
     end
     if key == 'e' and not player.isCharging then
         player.spell = player.spell + 1
+    end
+
+    if key == 'f' then
+        herbs:tryLoot(inv)
     end
 end
 

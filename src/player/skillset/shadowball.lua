@@ -5,16 +5,16 @@ local function c_Shadowball(world)
     Shadowballs = {
         projectile = love.graphics.newImage(pathImg.skill .. 'Shadowballs.png')
     }
-    Shadowballs.grid = anim8.newGrid(64, 64, Shadowballs.projectile:getWidth(), Shadowballs.projectile:getHeight())
+    Shadowballs.grid = anim8.newGrid(64, 64, Shadowballs.projectile:getDimensions())
     Shadowballs.animate = {
         spawn = anim8.newAnimation(Shadowballs.grid('1-6', 1), 0.15)
     }
     Shadowballs.anim = Shadowballs.animate.spawn
     
-    function toMouseVector(px, py)
-            local mx, my = love.mouse.getPosition()
-            local wx, wy = cam:worldCoords(mx, my)
-            return Vector(wx - px, wy - py):normalized()
+    local function toMouseVector(px, py)
+        local mx, my = love.mouse.getPosition()
+        local wx, wy = cam:worldCoords(mx, my)
+        return Vector(wx - px, wy - py):normalized()
     end
 
     function S_shadowball(x, y)
@@ -52,19 +52,19 @@ local function c_Shadowball(world)
         table.insert(Shadowballs, shadowball)
     end
 
-    function Shadowballs:startCharge()
-        if player.spell == 1 then
-            player.state = 2
-            player.chargeTime = 0
-            player.chargingSpell = {
-                pos = Vector(self.x, self.y),
-                rotation = 0,
-                scale = 1.7
-            }
-        else
-            return
-        end
+function Shadowballs:startCharge()
+    if player.spell == 1 then
+        player.state = 2
+        player.chargeTime = 0
+        player.chargingSpell = {
+            pos = Vector(self.x, self.y),
+            rotation = 0,
+            scale = 1.7
+        }
+    else
+        return
     end
+end
     function Shadowballs:charge(dt)
         if player.spell == 1 then
             if player.state == 2 and player.chargingSpell then

@@ -92,7 +92,7 @@ function drawSort.draw(map, scale)
         draw     = function() fire:draw() end
     })
     table.insert(drawables, {
-        y        = grass.y,
+        y        = grass.y -16,
         isScaled = false,
         draw     = function() grass:draw() end
     })

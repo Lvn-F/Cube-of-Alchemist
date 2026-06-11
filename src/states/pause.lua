@@ -1,14 +1,5 @@
 local pauseState = {}
 
-local inventory = require 'src/invensystem/inventory'
-local item = require 'src/invensystem/item'
-local inv = inventory.new(6, 3)
-local inventoryGui = require 'src/invensystem/gui'
-inventoryGui:setInventory(inv, 50, 50)
-
-inv:addItem(item.new("Red Potion", pathImg.consumable .. "potion.png", "Restore small amount of health"))
-inv:addItem(item.new("herb", pathImg.collectible .. "herb.png", "Basic ingredient for healing potion"))
-inv:addItem(item.new("Fire Herb", pathImg.collectible .. "fireHerb.png", "Hot enough to make fire"))
 guiMap = sti('map/gui2.lua')
 function pauseState:load()
     -- local inventoryGui = require 'src/invensystem/inventoryGui'
@@ -42,6 +33,7 @@ function pauseState:draw()
         love.graphics.scale(3, 3)
             drawBefore()
         love.graphics.pop()
+        herbs:draw()
         playerStat:draw()
         drawSort.draw(map, 3)
         love.graphics.push()
@@ -51,14 +43,17 @@ function pauseState:draw()
     cam:detach()
     playerStat:draw()
     love.graphics.push()
-        love.graphics.translate(offsetX, offsetY)
-        love.graphics.scale(3, 3)
+        shaders:darken()
+        love.graphics.translate(offsetX + 50, offsetY + 50)
+        love.graphics.scale(2.5, 2.5)
         guiMap:drawLayer(guiMap.layers["inven"])
     love.graphics.pop()
     love.graphics.push()
         -- love.graphics.translate(offsetX, offsetY)
+        
         inventoryGui:draw()
     love.graphics.pop()
+    
 end
 function pauseState:keypressed(key)
     local GS = require 'lib/hump/gamestate'

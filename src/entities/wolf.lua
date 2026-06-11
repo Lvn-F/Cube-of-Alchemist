@@ -21,7 +21,7 @@ local function c_wolf()
     for i = 1, 3 do
         local wolfs = {
             x = math.random(200, 600),
-            y = math.random(200, 600),
+            y = math.random(1000, 1250),
             speed = 170,
             dirX = 0,
             dirY = 0
@@ -83,9 +83,9 @@ local function c_wolf()
             wolfs.y = wolfs.y + wolfs.dirY * wolfs.speed * dt
             
             if wolfs.x < 200 then wolfs.x = 200; wolfs.dirX = 1 end
-            if wolfs.y < 200 then wolfs.y = 200; wolfs.dirY = 1 end
+            if wolfs.y < 1500 then wolfs.y = 1500; wolfs.dirY = 1 end
             if wolfs.x > 1000 then wolfs.x = 1000; wolfs.dirX = -1 end
-            if wolfs.y > 1000 then wolfs.y = 1000; wolfs.dirY = -1 end
+            if wolfs.y > 2000 then wolfs.y = 2000; wolfs.dirY = -1 end
             
             wolfs.collider:setLinearVelocity(wolfs.dirX * wolfs.speed, wolfs.dirY * wolfs.speed)
             wolfs.x, wolfs.y = wolfs.collider:getPosition()

@@ -22,8 +22,14 @@ shader.light = love.graphics.newShader[[
 ]]
 
 function shader:darken()
-    love.graphics.setColor(0, 0, 0, 0.5)
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setColor(0, 0, 0, 0.4)
+    love.graphics.rectangle("fill", 0, 0, love.graphics:getWidth(), love.graphics:getHeight())
+    love.graphics.setColor(1, 1, 1, 1)
+end
+function shader:whiten()
+    love.graphics.setColor(1, 1, 1, 0.01)
+    love.graphics.rectangle("fill", 0, 0, love.graphics:getWidth(), love.graphics:getHeight())
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 shader.fog = love.graphics.newShader[[
