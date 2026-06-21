@@ -1,9 +1,18 @@
+local SpellCombine = require 'src/util/spellCombine'
+
 local PlayState = {}
-inventory = require 'src/invensystem/inventory'
-item = require 'src/invensystem/item'
-inv = inventory.new(6, 3)
+
+inventory    = require 'src/invensystem/inventory'
+item         = require 'src/invensystem/item'
+inv          = inventory.new(6, 3)
 inventoryGui = require 'src/invensystem/gui'
 inventoryGui:setInventory(inv, 50, 50)
+
+local function getCombinedSpell()
+    if not player.mainSpell or not player.secondSpell then return nil end
+    return SpellCombine.getResult(player.mainSpell, player.secondSpell)
+end
+
 function PlayState:update(dt)
     world:update(dt)
     updateGame(dt)
@@ -35,7 +44,6 @@ function PlayState:draw()
             drawAfter()
         love.graphics.pop()
     cam:detach()
-    -- shaders:whiten()
 
     playerStat:draw()
 
@@ -45,35 +53,35 @@ function PlayState:draw()
             love.graphics.getWidth(), love.graphics.getHeight())
         love.graphics.setColor(1, 1, 1, 1)
     end
+
+    love.graphics.setColor(1, 1, 1, 0.6)
+    love.graphics.setFont(love.graphics.newFont(11))
+    love.graphics.print("[Tab] Spells   [Q/E] Cycle Main   [F] Loot", 10, love.graphics.getHeight() - 22)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function PlayState:keypressed(key)
-    if key == "escape" then
-        love.event.quit()
-        return
-    end
-    
     local GS = require 'lib/hump/gamestate'
-    if key == "t" then
-        local playTest = require 'src/states/test'
-        GS.push(playTest)
-        return
-    end
-    if key == 'tab' then
-        local pauseState = require 'src/states/pause'
-        GS.push(pauseState)
-        return
-    end
 
-    if key == 'space' and player.state == 1 then
-        player.state = 3
+    if key == 'escape' then
+        love.event.quit()
     end
+    if player.state == 1 then
+        if key == 'tab' then
+            local SpellSelect = require 'src/states/spellSelect'
+            GS.push(SpellSelect)
 
-    if key == 'q' and not player.isCharging then
-        player.spell = player.spell - 1
-    end
-    if key == 'e' and not player.isCharging then
-        player.spell = player.spell + 1
+        elseif key == 'i' then
+            local pauseState = require 'src/states/pause'
+            GS.push(pauseState)
+
+        elseif key == 't' then
+            local playTest = require 'src/states/test'
+            GS.push(playTest)
+
+        elseif key == 'space' and player.state == 1 then
+            player.state = 3
+        end
     end
 
     if key == 'f' then
@@ -82,13 +90,23 @@ function PlayState:keypressed(key)
 end
 
 function PlayState:mousepressed(x, y, button)
-    if button == 1 and player.state == 1 and player.spell then
-        player:startCharging()
+    if button == 1 then
+        if player.state == 1 and player.mainSpell then
+            player.spell = player.mainSpell
+            player:startCharging()
+        end
+
+    elseif button == 2 then
+        local combinedKey = getCombinedSpell()
+        if combinedKey and player.state == 1 then
+            player.spell = combinedKey
+            player:startCharging()
+        end
     end
 end
 
 function PlayState:mousereleased(x, y, button)
-    if button == 1 and player.state == 2 and player.spell then
+    if (button == 1 or button == 2) and player.state == 2 and player.spell then
         if player.chargeTime > 0.7 then
             player:releaseCharging()
         else

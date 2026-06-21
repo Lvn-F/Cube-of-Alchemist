@@ -23,6 +23,8 @@ function getRequire()
 
     require 'src/gui/stat'
     require 'src/gui/guiAssets'
+    local Window = require 'src/gui/window'
+    Window:load()
 
     -- Spell
     c_Shadowball = require 'src/player/skillset/shadowball'
@@ -43,7 +45,7 @@ function getRequire()
     -- Object Call
     herbs = c_Herb(world, map)
     fire = c_Fire(world)
-    grass = c_Grass(world)
+    grass = c_Grass(world, map)
 
     -- Entities
     c_wolf = require 'src/entities/wolf'

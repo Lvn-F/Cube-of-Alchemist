@@ -68,7 +68,7 @@ local function c_Herb(world, map)
         for _, h in ipairs(herbs) do
             if not h.looted then
                 love.graphics.setColor(1, 1, 1, 1)
-                love.graphics.draw(h.sprite, h.x, h.y, nil, 2, 2, 8, 8)
+                love.graphics.draw(h.sprite, h.x, h.y, nil, 2, 2, 16, 16)
 
                 local dist = math.sqrt((player.x - h.x)^2 + (player.y - h.y)^2)
                 if dist < 80 then

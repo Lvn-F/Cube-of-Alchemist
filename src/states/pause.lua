@@ -57,7 +57,7 @@ function pauseState:draw()
 end
 function pauseState:keypressed(key)
     local GS = require 'lib/hump/gamestate'
-    if key == 'tab' then
+    if key == 'e' then
         local playState = require 'src/states/play'
         GS.push(playState)
         return

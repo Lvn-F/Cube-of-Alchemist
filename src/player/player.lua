@@ -4,6 +4,8 @@ local function c_Player(world)
         speed = 500,
 
         spell = 1,
+        mainSpell   = 1,   -- default to Shadowball
+        secondSpell = nil,
 
         -- 1 = normal --
         -- 2 = charging --
@@ -45,7 +47,7 @@ local function c_Player(world)
     player.facing = "down"
 
 
-
+    -- # Player:Control
     function player:control(dt)
         --
         vxPlayer = 0
@@ -75,43 +77,43 @@ local function c_Player(world)
             isMoving = true
             self.facing = "down"
         end
-        if vxPlayer ~= 0 and vyPlayer ~= 0 then
+        if vxPlayer ~= 0 and vyPlayer ~= 0 then -- prevent double speed while moving diagonally
             local xy = math.sqrt(vxPlayer*vxPlayer + vyPlayer*vyPlayer)
             vxPlayer = vxPlayer / xy * self.speed
             vyPlayer = vyPlayer / xy * self.speed
         end
 
-        if isMoving == false then
+        if isMoving == false then -- reset while idle
             self.anim:gotoFrame(1)
         end
         
-        self.collider:setLinearVelocity(vxPlayer * dt * 40, vyPlayer * dt * 40)
-        self.x = self.collider:getX()
+        self.collider:setLinearVelocity(vxPlayer * dt * 40, vyPlayer * dt * 40) -- calculate speed with dt for constant frame
+        self.x = self.collider:getX() -- attach collider along player pos
         self.y = self.collider:getY()
-        self.pos = Vector(self.x, self.y)
+        -- self.pos = Vector(self.x, self.y)
     end
     --
 
-    -- spell selection
-    function player:spellSelect()
-        local maxSpells = 3
-        if player.spell < 1 then
-            player.spell = maxSpells
-        end
-        if player.spell > maxSpells then
-            player.spell = 1
-        end
-    end
-    --
+    -- -- spell selection
+    -- function player:spellSelect()
+    --     local maxSpells = 3
+    --     if player.spell < 1 then
+    --         player.spell = maxSpells
+    --     end
+    --     if player.spell > maxSpells then
+    --         player.spell = 1
+    --     end
+    -- end
+    -- --
 
-    --
+    -- State Handler
     function player:handleState(dt)
-        if player.state == 1 then
+        if player.state == 1 then -- normal gameplay
             player.isCharging = false
             player.speed = 500
         end
 
-        if player.state == 2 then
+        if player.state == 2 then -- for charging spell
             player.isCharging = true
         end
         if player.isCharging == true then
@@ -123,7 +125,7 @@ local function c_Player(world)
             player.chargeTime = 0
         end
 
-        if player.state == 3 then
+        if player.state == 3 then -- for dash, (i know it's hardcoded, atleast it work)
             player.dashTimer = player.dashTimer - dt
             player.isDash = true
             if player.isDash == true then
@@ -150,6 +152,7 @@ local function c_Player(world)
         end
     end
     
+    -- # Spell
     function player:startCharging()
         Shadowballs:startCharge()
         lightShards:startCharge()
@@ -166,18 +169,16 @@ local function c_Player(world)
         WindCharges:endCharge()
     end
 
+    -- # Player:Update
     function player:update(dt)
         player:control(dt)
-        player:spellSelect()
+        -- player:spellSelect()
         player:handleState(dt)
-        Shadowballs.anim = Shadowballs.animate.spawn
-        Shadowballs.anim:update(dt)
-        WindCharges.anim = WindCharges.animate.spawn
-        WindCharges.anim:update(dt)
         player:updateCharging(dt)
         self.anim:update(dt)
     end
 
+    -- # Player:Draw
     function player:draw()
         self.animate.shadow:draw(self.spriteSheet, self.x, self.y + 30, nil, 2.5, nil, 16, 23)
         self.anim:draw(self.spriteSheet, self.x, self.y, nil, 2.5, nil, 16, 23)

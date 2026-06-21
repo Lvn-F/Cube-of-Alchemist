@@ -1,4 +1,4 @@
--- src/drawSort.lua
+-- lib/drawSort.lua
 -- Draws environtmentBottom tile rows and world entities sorted by Y position,
 -- so sprites correctly appear in front of or behind environment objects.
 
@@ -15,7 +15,6 @@ local function drawTileRow(map, layer, row)
         local tile = layer.data[row][col]
         if tile then
             local image  = map.tilesets[tile.tileset].image
-            -- Match STI's orthogonal tile position formula from getLayerTilePosition
             local tileX  = (col - 1) * tileW + tile.offset.x + layer.x
             local tileY  = row * tileH + tile.offset.y - tile.height + layer.y
             love.graphics.draw(image, tile.quad, tileX, tileY, tile.r, tile.sx, tile.sy)
@@ -32,24 +31,15 @@ local function rowHasContent(layer, row)
     return false
 end
 
--- Build and draw a Y-sorted list of:
---   • every non-empty row of map.layers["environtmentBottom"]
---   • player, wolf instances, fire, and shadowballs
---
--- scale: the integer scale applied to map tile drawing (3 in this project).
--- World Y of a tile at map-row r = r * tileheight * scale.
--- Entity positions are already in that world space (mapCollider multiplies by 3).
 function drawSort.draw(map, scale)
     local drawables = {}
-    local tileH     = map.tileheight * scale  -- world-space height of one tile row
+    local tileH     = map.tileheight * scale
 
     -- ── Environment tile rows ──────────────────────────────────────────────
     local envLayer = map.layers["environtmentBottom"]
     if envLayer then
         for row = 1, envLayer.height do
             if rowHasContent(envLayer, row) then
-                -- Sort by the bottom edge of the tile row in world space.
-                -- This makes entities whose Y exceeds the tile base draw on top.
                 local envOffset = envLayer.properties.ySortOffset or 0
                 local worldBottomY = row * tileH + envOffset
                 table.insert(drawables, {
@@ -64,7 +54,6 @@ function drawSort.draw(map, scale)
     end
 
     -- ── Player ────────────────────────────────────────────────────────────
-    -- Use the collider centre as the sort key; close enough to foot position.
     table.insert(drawables, {
         y        = player.y,
         isScaled = false,
@@ -72,8 +61,6 @@ function drawSort.draw(map, scale)
     })
 
     -- ── Wolf instances ────────────────────────────────────────────────────
-    -- Each wolf is a separate drawable so they sort individually.
-    -- wolf.anim is a shared reference; capture it per-frame here.
     for _, wolfs in ipairs(wolf.instance) do
         local wx, wy = wolfs.x, wolfs.y
         table.insert(drawables, {
@@ -91,14 +78,20 @@ function drawSort.draw(map, scale)
         isScaled = false,
         draw     = function() fire:draw() end
     })
-    table.insert(drawables, {
-        y        = grass.y -16,
-        isScaled = false,
-        draw     = function() grass:draw() end
-    })
+
+    -- ── Grass instances (one drawable per instance for correct sort order) ─
+    for _, inst in ipairs(grass.instances) do
+        local gx, gy = inst.x, inst.y
+        table.insert(drawables, {
+            y        = gy,
+            isScaled = false,
+            draw     = function()
+                grass.anim:draw(grass.spriteSheet, gx, gy, nil, 2, 2, 8, 8)
+            end
+        })
+    end
 
     -- ── Shadowballs ───────────────────────────────────────────────────────
-    -- Individual projectiles sort by their own Y position.
     for _, sb in ipairs(Shadowballs) do
         local sx, sy = sb.pos.x, sb.pos.y
         table.insert(drawables, {
@@ -116,14 +109,40 @@ function drawSort.draw(map, scale)
             end
         })
     end
+    for _, sb in ipairs(WindCharges) do
+        local sx, sy = sb.pos.x, sb.pos.y
+        table.insert(drawables, {
+            y        = sy,
+            isScaled = false,
+            draw     = function()
+                WindCharges.anim:draw(
+                    WindCharges.projectile,
+                    sx, sy,
+                    sb.rotation,
+                    1.5, 1.5,
+                    WindCharges.projectile:getWidth()  / 13,
+                    WindCharges.projectile:getHeight() / 2
+                )
+                if WindCharges.animate.spawn.position == 4 then
+                    WindCharges.anim = WindCharges.animate.release
+                    WindCharges.anim:draw(
+                    WindCharges.projectile,
+                    sx, sy,
+                    sb.rotation,
+                    1.5, 1.5,
+                    WindCharges.projectile:getWidth()  / 13,
+                    WindCharges.projectile:getHeight() / 2
+                    )
+                end
+            end
+        })
+    end
+    
 
     -- ── Sort ascending by world Y (back → front) ─────────────────────────
     table.sort(drawables, function(a, b) return a.y < b.y end)
 
     -- ── Draw ──────────────────────────────────────────────────────────────
-    -- Scaled drawables (tile rows) need the 3× transform; entities do not.
-    -- We toggle the scale around each tile-row draw to avoid one giant
-    -- push/pop block that would mix coordinate systems.
     for _, d in ipairs(drawables) do
         if d.isScaled then
             love.graphics.push()

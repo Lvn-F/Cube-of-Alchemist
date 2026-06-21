@@ -7,8 +7,8 @@ local function c_windcharge(world)
     }
     WindCharges.grid = anim8.newGrid(32, 32, WindCharges.projectile:getDimensions())
     WindCharges.animate = {
-        spawn = anim8.newAnimation(WindCharges.grid('1-6', 1), 0.15),
-        release = anim8.newAnimation(WindCharges.grid('5-8', 1), 0.15)
+        spawn = anim8.newAnimation(WindCharges.grid('5-8', 1), 0.05),
+        release = anim8.newAnimation(WindCharges.grid('5-8', 1), 0.05)
     }
     WindCharges.anim = WindCharges.animate.spawn
     
@@ -30,9 +30,9 @@ local function c_windcharge(world)
             dir = dir,
             rotation = dir:angleTo(Vector(1, 0)),
             rad = 3,
-            speed = 400 + player.chargeTime * 500
+            speed = 700 + player.chargeTime * 500
         }
-        windcharge.collider = world:newBSGRectangleCollider(x - 64/2, y - 64/2, 64, 64, 16)
+        windcharge.collider = world:newBSGRectangleCollider(x - 64/2, y - 64/2, 32, 32, 16)
         windcharge.collider:setCollisionClass("Projectile")
         windcharge.collider:setLinearVelocity(dir.x * windcharge.speed, dir.y * windcharge.speed)
         
@@ -75,6 +75,8 @@ end
                 player.chargingSpell.scale = 1 + player.chargeTime * 0.3
                 local dir = toMouseVector(player.x, player.y)
                 player.chargingSpell.rotation = dir:angleTo(Vector(1,0))
+                -- self.anim = self.animate.spawn
+                -- self.anim:update(dt)
                 if dir.x >= 0 then
                     player.facing = "right"
                     player.anim = player.animate.right
@@ -109,11 +111,16 @@ end
                 table.remove(WindCharges, i)
             end
         end
+        
     end
 
     function WindCharges:draw()
         for _,a in ipairs(WindCharges) do
             self.anim:draw(self.projectile, a.pos.x, a.pos.y, a.rotation, 1.5, 1.5, self.projectile:getWidth()/13, self.projectile:getHeight()/2)
+            if self.animate.spawn.position == 4 then
+                self.anim = self.animate.release
+                self.anim:draw(self.projectile, a.pos.x, a.pos.y, a.rotation, 1.5, 1.5, self.projectile:getWidth()/13, self.projectile:getHeight()/2)
+            end
         end
     end
 end
