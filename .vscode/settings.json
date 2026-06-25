@@ -9,6 +9,7 @@
         "deprecated",
         "undefined-field",
         "redundant-parameter",
-        "count-down-loop"
+        "count-down-loop",
+        "need-check-nil"
     ]
 }

@@ -14,11 +14,9 @@ local function c_LightShard()
     lightShards.anim = lightShards.animate.charge
     
     function lightShards:startCharge()
-        if player.spell == 2 then
-            player.state = 2
-            player.chargeTime = 0
-            self.animate.charge:gotoFrame(1)
-        end
+        player.state = 2
+        player.chargeTime = 0
+        self.animate.charge:gotoFrame(1)
     end
     function lightShards:charge(dt)
         if player.spell == 2 and player.state == 2 then

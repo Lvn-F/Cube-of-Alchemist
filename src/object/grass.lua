@@ -1,7 +1,7 @@
 local function c_Grass(world, map)
     local grass = {
         spriteSheet = love.graphics.newImage('assets/sprite/object/smallGrass.png'),
-        animSpeed = 0.28,
+        animSpeed = 0.23,
         x = 0,  -- kept for drawSort compatibility (uses first instance or 0)
         y = 0,
         instances = {}
@@ -20,7 +20,13 @@ local function c_Grass(world, map)
             if obj.name:match("^grasss") then
                 local wx = obj.x * 3
                 local wy = obj.y * 3
-                table.insert(grass.instances, { x = wx, y = wy })
+
+                -- Each instance gets its own cloned animation, started on a
+                -- random frame, so tufts don't all pulse in lockstep.
+                local instAnim = grass.animate.idle:clone()
+                instAnim:gotoFrame(math.random(1, #instAnim.frames))
+
+                table.insert(grass.instances, { x = wx, y = wy, anim = instAnim })
             end
         end
     end
@@ -32,15 +38,16 @@ local function c_Grass(world, map)
     end
 
     function grass:update(dt)
-        self.anim = self.animate.idle
-        self.anim:update(dt)
+        for _, inst in ipairs(self.instances) do
+            inst.anim:update(dt)
+        end
     end
 
-    -- function grass:draw()
-    --     for _, inst in ipairs(self.instances) do
-    --         self.anim:draw(self.spriteSheet, inst.x, inst.y, nil, 2, nil, 8, 8)
-    --     end
-    -- end
+    function grass:draw()
+        -- for _, inst in ipairs(self.instances) do
+        --     inst.anim:draw(self.spriteSheet, inst.x, inst.y, nil, 2, nil, 4, 4)
+        -- end
+    end
 
     return grass
 end

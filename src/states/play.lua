@@ -12,16 +12,30 @@ local function getCombinedSpell()
     if not player.mainSpell or not player.secondSpell then return nil end
     return SpellCombine.getResult(player.mainSpell, player.secondSpell)
 end
-
+-- local Camera = require 'lib/hump/camera'
+cam.smoother = cameraa.smooth.damped(8)
 function PlayState:update(dt)
     world:update(dt)
     updateGame(dt)
 
     cam:lookAt(player.x, player.y)
+    local scale = 3
     local w = love.graphics.getWidth()
     local h = love.graphics.getHeight()
-    if cam.x < w / 2 then cam.x = w / 2 end
-    if cam.y < h / 2 then cam.y = h / 2 end
+    local mapW = map.width * map.tilewidth
+    local mapH = map.height * map.tileheight
+    if cam.x < w / 2 then 
+        cam.x = w / 2
+    end
+    if cam.y < h / 2 then
+        cam.y = h / 2
+    end
+    -- if cam.x > (mapW - w/2) then
+    --     cam.x = (mapW - w/2)
+    -- end
+    -- if cam.y > (mapH - h/2) then
+    --     cam.y = (mapH - h/2)
+    -- end
 
     fog:update(dt)
 end
@@ -78,6 +92,9 @@ function PlayState:keypressed(key)
         elseif key == 't' then
             local playTest = require 'src/states/test'
             GS.push(playTest)
+        elseif key == 'e' then
+            local crafting = require 'src/states/crafting'
+            GS.push(crafting)
 
         elseif key == 'space' and player.state == 1 then
             player.state = 3

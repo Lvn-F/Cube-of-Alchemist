@@ -81,14 +81,42 @@ function drawSort.draw(map, scale)
 
     -- ── Grass instances (one drawable per instance for correct sort order) ─
     for _, inst in ipairs(grass.instances) do
-        local gx, gy = inst.x, inst.y
+        local gx, gy, ganim = inst.x, inst.y, inst.anim
         table.insert(drawables, {
             y        = gy,
             isScaled = false,
             draw     = function()
-                grass.anim:draw(grass.spriteSheet, gx, gy, nil, 2, 2, 8, 8)
+                ganim:draw(grass.spriteSheet, gx, gy, nil, 2, nil, 12, 12)
             end
         })
+        -- table.insert(drawables, {
+        --     y        = gy,
+        --     isScaled = false,
+        --     draw     = function()
+        --         ganim:draw(grass.spriteSheet, gx + 16, gy - 8, nil, 2, nil, 4, 4)
+        --     end
+        -- })
+        -- table.insert(drawables, {
+        --     y        = gy,
+        --     isScaled = false,
+        --     draw     = function()
+        --         ganim:draw(grass.spriteSheet, gx + 16, gy + 8, nil, 2, nil, 4, 4)
+        --     end
+        -- })
+        -- table.insert(drawables, {
+        --     y        = gy,
+        --     isScaled = false,
+        --     draw     = function()
+        --         ganim:draw(grass.spriteSheet, gx - 16, gy + 16, nil, 2, nil, 4, 4)
+        --     end
+        -- })
+        -- table.insert(drawables, {
+        --     y        = gy,
+        --     isScaled = false,
+        --     draw     = function()
+        --         ganim:draw(grass.spriteSheet, gx - 8, gy - 16, nil, 2, nil, 4, 4)
+        --     end
+        -- })
     end
 
     -- ── Shadowballs ───────────────────────────────────────────────────────
