@@ -130,7 +130,7 @@ function drawSort.draw(map, scale)
                     Shadowballs.projectile,
                     sx, sy,
                     sb.rotation,
-                    1.5, 1.5,
+                    1, 1,
                     Shadowballs.projectile:getWidth()  / 13,
                     Shadowballs.projectile:getHeight() / 2
                 )
@@ -169,6 +169,7 @@ function drawSort.draw(map, scale)
     -- Firecharges
     for _, sb in ipairs(Firecharges) do
         local sx, sy = sb.pos.x, sb.pos.y
+        local burstTime = 1
         table.insert(drawables, {
             y        = sy,
             isScaled = false,
@@ -181,6 +182,7 @@ function drawSort.draw(map, scale)
                     16,
                     16
                 )
+                
             end
         })
     end

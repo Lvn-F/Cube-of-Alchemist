@@ -20,7 +20,7 @@ local SPELLS = {
     { key = 1, name = "Shadowball",  symbol = "◆", desc = "Charge and hurl a dark projectile", iconPath = pathImg.skill .. "shadowballIcon.png"},
     { key = 2, name = "Light Shard", symbol = "★", desc = "Release a blinding flash of light", iconPath = pathImg.skill .. "lightshardIcon.png" },
     { key = 3, name = "Wind Charge", symbol = "↑", desc = "Blast forward with a gust of wind",  iconPath = pathImg.skill .. "winchargeIcon.png" },
-    { key = 4, name = "Firecharge",  symbol = "🔥", desc = "Charge up and unleash a fiery blast", nil},
+    { key = 4, name = "Firecharge",  symbol = "🔥", desc = "Charge up and unleash a fiery blast", iconPath = pathImg.skill .. "firechargesIcon.png"},
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────

@@ -53,6 +53,7 @@ function PlayState:draw()
         dummy:draw()
         drawSort.draw(map, 3)
         player:drawSpell()
+        Shadowballs:drawtest()
 
         love.graphics.push()
             love.graphics.scale(3, 3)

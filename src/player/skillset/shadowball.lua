@@ -115,5 +115,8 @@ end
             self.anim:draw(self.projectile, a.pos.x, a.pos.y, a.rotation, 1.5, 1.5, self.projectile:getWidth()/13, self.projectile:getHeight()/2)
         end
     end
+    function Shadowballs:drawtest()
+        self.anim:draw(self.projectile, 2600, 740, nil, 1.5, 6, self.projectile:getWidth()/13, self.projectile:getHeight()/2)
+    end
 end
 return c_Shadowball

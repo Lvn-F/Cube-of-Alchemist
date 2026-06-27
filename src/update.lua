@@ -16,6 +16,7 @@ function updateGame(dt)
 
     -- entities
     wolf:update(dt)
+    dummy:update(dt)
     --
 
     --

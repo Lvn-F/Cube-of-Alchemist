@@ -11,6 +11,7 @@ local function c_Firecharge(world)
         charge     = anim8.newAnimation(Firecharges.grid('1-7', 1),   Firecharges.animSpeed),
         chargeFull = anim8.newAnimation(Firecharges.grid('8-12', 1),  Firecharges.animSpeed),
         release    = anim8.newAnimation(Firecharges.grid('13-15', 1), 0.08),
+        burst      = anim8.newAnimation(Firecharges.grid('16-23', 1), 0.1)
     }
     Firecharges.anim = Firecharges.animate.charge
 
@@ -32,7 +33,7 @@ local function c_Firecharge(world)
             dir = dir,
             rotation = dir:angleTo(Vector(1, 0)),
             rad = 3,
-            speed = 450 + player.chargeTime * 500,
+            speed = 450 + player.chargeTime * 300,
             -- own clone so multiple firecharges in flight don't share animation state
             anim = Firecharges.animate.release:clone(),
         }
@@ -49,6 +50,18 @@ local function c_Firecharge(world)
             end
             self.anim:update(dt)
             self.pos.x, self.pos.y = self.collider:getPosition()
+
+            local hits = world:queryCircleArea(self.pos.x, self.pos.y, 20, {'Enemy', 'Map'})
+            for _, h in ipairs(hits) do
+                local obj = h:getObject()
+                if obj and obj.hit then obj:hit()
+                 end
+            end
+            if #hits > 0 then
+                
+                self.dead = true
+                self.collider:destroy()
+            end
         end
 
         table.insert(Firecharges, firecharge)
