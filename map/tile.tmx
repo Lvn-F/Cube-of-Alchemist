@@ -414,9 +414,6 @@
   <object id="116" name="fireHerbPlant" x="403.25" y="206.917">
    <point/>
   </object>
-  <object id="119" name="grasss" x="298.72" y="299.318">
-   <point/>
-  </object>
   <object id="120" name="grasss " x="269.879" y="393.894">
    <point/>
   </object>
@@ -453,9 +450,6 @@
   <object id="132" name="grasss " x="164.379" y="388.81">
    <point/>
   </object>
-  <object id="133" name="grasss " x="254.129" y="295.56">
-   <point/>
-  </object>
   <object id="134" name="grasss " x="94.212" y="459.894">
    <point/>
   </object>
@@ -483,24 +477,6 @@
   <object id="149" name="grasss " x="242.804" y="183.932">
    <point/>
   </object>
-  <object id="155" name="grasss " x="288.97" y="285.432">
-   <point/>
-  </object>
-  <object id="156" name="grasss " x="281.887" y="291.849">
-   <point/>
-  </object>
-  <object id="157" name="grasss " x="278.97" y="303.516">
-   <point/>
-  </object>
-  <object id="150" name="grasss " x="283.637" y="264.932">
-   <point/>
-  </object>
-  <object id="151" name="grasss " x="272.554" y="296.599">
-   <point/>
-  </object>
-  <object id="152" name="grasss " x="264.387" y="271.099">
-   <point/>
-  </object>
   <object id="195" name="grasss " x="34.887" y="176.432">
    <point/>
   </object>
@@ -522,22 +498,13 @@
   <object id="153" name="grasss " x="131.887" y="277.432">
    <point/>
   </object>
-  <object id="123" name="grasss " x="268.371" y="295.152">
-   <point/>
-  </object>
   <object id="124" name="grasss " x="395.849" y="418.045">
-   <point/>
-  </object>
-  <object id="125" name="grasss " x="267.819" y="286.499">
    <point/>
   </object>
   <object id="127" name="grasss " x="89.8188" y="377.469">
    <point/>
   </object>
   <object id="130" name="grasss " x="176.273" y="493.954">
-   <point/>
-  </object>
-  <object id="128" name="grasss " x="293.061" y="253.864">
    <point/>
   </object>
   <object id="126" name="grasss " x="258.803" y="483.636">

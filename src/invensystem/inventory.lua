@@ -12,21 +12,24 @@ function inventory.new(w, h)
     return self
 end
 
-function inventory:addItem(item)
+function inventory:addItem(item, count)
+    count = count or 1
+
     for y = 1, #self.arr do
         for x = 1, #self.arr[1] do
             local slot = self.arr[y][x]
             if slot ~= 0 and slot.item.name == item.name then
-                slot.count = slot.count + 1
+                slot.count = slot.count + count
                 return true
             end
         end
     end
+
     local stop = false
     for y = 1, #self.arr do
         for x = 1, #self.arr[1] do
             if self.arr[y][x] == 0 then
-                self.arr[y][x] = {item = item, count = 1}
+                self.arr[y][x] = {item = item, count = count}
                 stop = true
                 break
             end

@@ -1,20 +1,4 @@
 -- src/states/crafting.lua
---
--- Crafting screen layout:
---   ┌───────────────────┐   ┌───────────────────────┐
---   │   INVENTORY         │   │   CRAFTING               │
---   │   (own window)      │   │   (own window)           │
---   │                     │   │                           │
---   │   item grid         │   │   craft grid (2x2)        │
---   │                     │   │   → result preview        │
---   │   description box   │   │   [ Craft ] button        │
---   └───────────────────┘   └───────────────────────┘
---
--- Click an inventory slot to "pick up" the item, then click a crafting
--- slot to place it there. Click a filled crafting slot to send it back
--- to the inventory. Hovering any slot updates the description box.
--- Filling the craft grid with a valid recipe shows a result preview;
--- pressing the Craft button consumes the ingredients and grants the result.
 
 local Crafting = {}
 
@@ -24,7 +8,7 @@ local Crafting = {}
 local SLOT_SIZE      = 50
 local SLOT_GAP       = 6
 local WINDOW_PAD     = 20
-local WINDOW_GAP     = 28   -- gap between the inventory window and crafting window
+local WINDOW_GAP     = 48   -- gap between the inventory window and crafting window
 local DESC_HEIGHT    = 90
 local TITLE_HEIGHT   = 36
 
@@ -84,14 +68,8 @@ local COL = {
 -- plus the resulting item. Order of ingredients in the grid doesn't matter.
 -- Set result.imgPath to a sprite path; it's loaded into result.imgObj lazily.
 -- ─────────────────────────────────────────────────────────────────────────────
-local RECIPES = {
-    -- Example recipe — replace with your real ones:
-    -- {
-    --     inputs = { { name = "Herb", count = 2 }, { name = "Fire Herb", count = 1 } },
-    --     result = { name = "Healing Potion", imgPath = "assets/sprite/item/consumable/potion.png",
-    --                desc = "Restores health.", count = 1 },
-    -- },
-}
+local RECIPES = require 'src/util/recipes'
+local item    = require 'src/invensystem/item'
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- MODULE STATE
@@ -417,7 +395,7 @@ local function drawResultPreview()
         local result = matchedRecipe.result
         if result.imgObj then
             setColor(COL.text)
-            love.graphics.draw(result.imgObj, rx + rs / 2, ry + rs / 2, 0, 2, 2, 8, 8)
+            love.graphics.draw(result.imgObj, rx + rs / 2, ry + rs / 2, 0, 1.5, 1.5, 16, 16)
         end
 
         if result.count and result.count > 1 then
@@ -462,12 +440,42 @@ end
 -- CRAFTING ACTION
 -- ─────────────────────────────────────────────────────────────────────────────
 
+-- Consumes exactly the amounts required by the recipe from the craft grid,
+-- leaving any surplus behind in place (rather than wiping whole stacks).
+local function consumeRecipeIngredients(recipe)
+    for _, ing in ipairs(recipe.inputs) do
+        local remaining = ing.count
+
+        for r = 1, CRAFT_ROWS do
+            for c = 1, CRAFT_COLS do
+                if remaining <= 0 then break end
+
+                local slot = craftGrid[r][c]
+                if slot ~= 0 and slot.item.name == ing.name then
+                    local take = math.min(slot.count, remaining)
+                    slot.count = slot.count - take
+                    remaining = remaining - take
+
+                    if slot.count <= 0 then
+                        craftGrid[r][c] = 0
+                    end
+                end
+            end
+        end
+    end
+end
+
 local function tryCraft()
     if not matchedRecipe then return end
 
-    -- Consume ingredients, then grant the result to the inventory
-    resetCraftGrid()
-    inv:addItem(matchedRecipe.result)
+    local result = matchedRecipe.result
+    local craftedItem = item.new(result.name, result.imgPath, result.desc)
+
+    consumeRecipeIngredients(matchedRecipe)
+
+    for i = 1, (result.count or 1) do
+        inv:addItem(craftedItem)
+    end
 
     refreshRecipeMatch()
 end
@@ -497,7 +505,8 @@ function Crafting:update(dt)
     local mx, my = love.mouse.getPosition()
     hoverSlot     = nil
     hoverCraftBtn = false
-
+    world:update(dt)
+    updateGame(dt)
     for y = 1, layout.inv.rows do
         for x = 1, layout.inv.cols do
             local rx, ry, rw, rh = invSlotRect(x, y)
@@ -526,7 +535,21 @@ end
 
 function Crafting:draw()
     local sw, sh = love.graphics.getDimensions()
+    cam:attach()
+        love.graphics.push()
+            love.graphics.scale(3, 3)
+            drawBefore()
+        love.graphics.pop()
 
+        herbs:draw()
+        drawSort.draw(map, 3)
+        player:drawSpell()
+
+        love.graphics.push()
+            love.graphics.scale(3, 3)
+            drawAfter()
+        love.graphics.pop()
+    cam:detach()
     setColor(COL.bgDim)
     love.graphics.rectangle("fill", 0, 0, sw, sh)
 
