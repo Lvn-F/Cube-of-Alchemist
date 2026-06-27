@@ -157,16 +157,19 @@ local function c_Player(world)
         Shadowballs:startCharge()
         lightShards:startCharge()
         WindCharges:startCharge()
+        Firecharges:startCharge()
     end
     function player:updateCharging(dt)
         Shadowballs:charge(dt)
         lightShards:charge(dt)
         WindCharges:charge(dt)
+        Firecharges:charge(dt)
     end
     function player:releaseCharging()
         Shadowballs:endCharge()
         lightShards:endCharge()
         WindCharges:endCharge()
+        Firecharges:endCharge()
     end
 
     -- # Player:Update
@@ -191,6 +194,8 @@ local function c_Player(world)
                 lightShards:draw(player.x, player.y)
             elseif self.spell == 3 then
                 WindCharges.anim:draw(WindCharges.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,WindCharges.projectile:getWidth()/120,WindCharges.projectile:getHeight()/2)
+            elseif self.spell == 4 then
+                Firecharges.anim:draw(Firecharges.projectile, self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale, Firecharges.projectile:getWidth()/120, Firecharges.projectile:getHeight()/2)
             end
         end
     end

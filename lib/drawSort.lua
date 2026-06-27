@@ -119,7 +119,7 @@ function drawSort.draw(map, scale)
         -- })
     end
 
-    -- ── Shadowballs ───────────────────────────────────────────────────────
+    -- Shadowballs
     for _, sb in ipairs(Shadowballs) do
         local sx, sy = sb.pos.x, sb.pos.y
         table.insert(drawables, {
@@ -162,6 +162,25 @@ function drawSort.draw(map, scale)
                     WindCharges.projectile:getHeight() / 2
                     )
                 end
+            end
+        })
+    end
+
+    -- Firecharges
+    for _, sb in ipairs(Firecharges) do
+        local sx, sy = sb.pos.x, sb.pos.y
+        table.insert(drawables, {
+            y        = sy,
+            isScaled = false,
+            draw     = function()
+                sb.anim:draw(
+                    Firecharges.projectile,
+                    sx, sy ,
+                    sb.rotation,
+                    2, 2,
+                    16,
+                    16
+                )
             end
         })
     end

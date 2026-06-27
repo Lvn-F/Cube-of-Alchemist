@@ -30,10 +30,12 @@ function getRequire()
     c_Shadowball = require 'src/player/skillset/shadowball'
     c_LightShard = require 'src/player/skillset/lightShard'
     c_WindCharge = require 'src/player/skillset/windCharge'
+    c_Firecharge = require 'src/player/skillset/firecharge'
     -- Spell Call
     shadowball = c_Shadowball(world)
     lightShards = c_LightShard(world)
     windCharges = c_WindCharge(world)
+    firecharges = c_Firecharge(world)
     
     c_Player = require 'src/player/player'
     player = c_Player(world)
@@ -48,8 +50,10 @@ function getRequire()
     grass = c_Grass(world, map)
 
     -- Entities
+    c_Dummy = require 'src/entities/dummy'
     c_wolf = require 'src/entities/wolf'
     -- Entities Call
+    dummy = c_Dummy(world)
     wolf = c_wolf(world)
 end
 return require

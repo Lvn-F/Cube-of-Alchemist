@@ -6,6 +6,7 @@ function updateGame(dt)
     Shadowballs:update(dt)
     lightShards:update(dt)
     WindCharges:update(dt)
+    Firecharges:update(dt)
     --
 
     -- Object
