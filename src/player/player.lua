@@ -14,7 +14,10 @@ local function c_Player(world)
         isCharging = false,
         chargeTime = 0,
         isDash = false,
-        dashTimer = 0.3,
+        dashTimer = 0.5,
+        iframe = false,
+        hitTake = false,
+        hitTakeCd = 0,
 
         x = 875,
         y =530,
@@ -39,8 +42,8 @@ local function c_Player(world)
         left = anim8.newAnimation(player.grid('1-4', 2), player.animSpeed),
         up = anim8.newAnimation(player.grid('1-4', 3), player.animSpeed),
         down = anim8.newAnimation(player.grid('1-4', 4), player.animSpeed),
-        dash = anim8.newAnimation(player.grid('1-1', 5), player.animSpeed),
-        dashL = anim8.newAnimation(player.grid('1-1', 6), player.animSpeed),
+        dash = anim8.newAnimation(player.grid('1-2', 5), player.animSpeed),
+        dashL = anim8.newAnimation(player.grid('1-2', 6), player.animSpeed),
         shadow = anim8.newAnimation(player.grid('1-1', 7), player.animSpeed)
     }
     player.anim = player.animate.down
@@ -133,21 +136,55 @@ local function c_Player(world)
                     self.speed = 1000
                     if player.facing == "right" then
                         self.anim = self.animate.dash
-                    elseif player.facing == "left" then
+                    end
+                    if player.facing == "left" then
                         self.anim = self.animate.dashL
                     end
-                    if self.animate.dash.position == 2 then
-                        self.animate.dash:pause()
-                    elseif self.animate.dashL.position == 2 then
-                        self.animate.dashL:pause()
-                    end
+                    -- if self.animate.dash.position == 2 then
+                    --     self.animate.dash:pause()
+                    -- end
+                    -- if self.animate.dashL.position == 2 then
+                    --     self.animate.dashL:pause()
+                    -- end
                 elseif love.keyboard.isDown('w') or love.keyboard.isDown('s') then
                     self.speed = 1000
                 end
+                if love.keyboard.isDown('w') or love.keyboard.isDown('s')then
+                    if love.keyboard.isDown('d') then
+                        self.anim = self.animate.dash
+                    end
+                end
+                if love.keyboard.isDown('w') or love.keyboard.isDown('s')then
+                    if love.keyboard.isDown('a') then
+                        self.anim = self.animate.dashL
+                    end
+                end
+                
             end
             if player.dashTimer < 0 then
                 self.state = 1
                 self.dashTimer = 0.3
+            end
+        end
+    end
+
+    -- collision check
+    function player:collide(dt)
+        if self.hitTakeCd > 0 then
+            self.hitTakeCd = self.hitTakeCd - dt
+        end
+
+        local hits = world:queryCircleArea(self.x, self.y, 20, {'Enemy'})
+        for _, h in ipairs(hits) do
+            local obj = h:getObject()
+            if obj and obj.hit then
+                obj:hit()
+            end
+
+            
+            if #hits and self.hitTakeCd <= 0 then
+                playerStat.health = playerStat.health - 0.25
+                self.hitTakeCd = 0.5
             end
         end
     end
@@ -178,6 +215,7 @@ local function c_Player(world)
         -- player:spellSelect()
         player:handleState(dt)
         player:updateCharging(dt)
+        player:collide(dt)
         self.anim:update(dt)
     end
 

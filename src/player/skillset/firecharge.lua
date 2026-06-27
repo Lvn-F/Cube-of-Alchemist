@@ -11,7 +11,7 @@ local function c_Firecharge(world)
         charge     = anim8.newAnimation(Firecharges.grid('1-7', 1),   Firecharges.animSpeed),
         chargeFull = anim8.newAnimation(Firecharges.grid('8-12', 1),  Firecharges.animSpeed),
         release    = anim8.newAnimation(Firecharges.grid('13-15', 1), 0.08),
-        burst      = anim8.newAnimation(Firecharges.grid('16-23', 1), 0.1)
+        burst      = anim8.newAnimation(Firecharges.grid('16-23', 1), 0.07)
     }
     Firecharges.anim = Firecharges.animate.charge
 
@@ -30,37 +30,61 @@ local function c_Firecharge(world)
             pos = Vector(x, y),
             timer = 4,
             dead = false,
+            bursting = false,
             dir = dir,
             rotation = dir:angleTo(Vector(1, 0)),
             rad = 3,
-            speed = 450 + player.chargeTime * 300,
-            -- own clone so multiple firecharges in flight don't share animation state
+            speed = 450 + player.chargeTime * 500,
             anim = Firecharges.animate.release:clone(),
         }
-        firecharge.collider = world:newBSGRectangleCollider(x - 16, y - 16, 32, 32, 16)
+        firecharge.collider = world:newBSGRectangleCollider(x - 32/2, y - 32/2, 32, 32, 16)
         firecharge.collider:setCollisionClass("Projectile")
         firecharge.collider:setLinearVelocity(dir.x * firecharge.speed, dir.y * firecharge.speed)
 
+        -- Switches the projectile into its one-shot burst animation,
+        -- freezes it in place, and removes its collider so it can't
+        -- re-trigger more hits while the burst plays out.
+        function firecharge:playBurst()
+            if self.bursting then return end
+            self.bursting = true
+
+            self.collider:setLinearVelocity(0, 0)
+            self.collider:destroy()
+            self.collider = nil
+
+            self.anim = Firecharges.animate.burst:clone()
+            -- onLoop fires once the (non-repeating-in-practice) animation
+            -- wraps back to frame 1 -- that's our "burst finished" signal.
+            self.anim.onLoop = function()
+                self.dead = true
+            end
+        end
+
         function firecharge:update(dt)
+            self.anim:update(dt)
+
+            if self.bursting then
+                -- nothing else to do while the burst plays; self.dead is
+                -- set by the onLoop callback above once it completes
+                return
+            end
+
             self.timer = self.timer - dt
             if self.timer < 0 then
                 self.dead = true
                 self.collider:destroy()
                 return
             end
-            self.anim:update(dt)
+
             self.pos.x, self.pos.y = self.collider:getPosition()
 
             local hits = world:queryCircleArea(self.pos.x, self.pos.y, 20, {'Enemy', 'Map'})
             for _, h in ipairs(hits) do
                 local obj = h:getObject()
-                if obj and obj.hit then obj:hit()
-                 end
+                if obj and obj.hit then obj:hit() end
             end
             if #hits > 0 then
-                
-                self.dead = true
-                self.collider:destroy()
+                self:playBurst()
             end
         end
 
@@ -112,7 +136,7 @@ local function c_Firecharge(world)
                 else
                     player.facing = "left"
                     player.anim = player.animate.left
-                    player.chargingSpell.pos.x = player.x - 48
+                    player.chargingSpell.pos.x = player.x - 32
                 end
             end
         end
@@ -121,6 +145,11 @@ local function c_Firecharge(world)
     function Firecharges:endCharge()
         if player.spell == 4 then
             if player.state == 2 and player.chargingSpell then
+                if player.chargeTime <= 0.7 then
+                    player.isCharging = false
+                    player.state = 1
+                    return
+                end
                 local px, py = player.x, player.y
                 local dir = toMouseVector(px, py)
 

@@ -62,7 +62,8 @@ function drawSort.draw(map, scale)
 
     -- ── Wolf instances ────────────────────────────────────────────────────
     for _, wolfs in ipairs(wolf.instance) do
-        local wx, wy = wolfs.x, wolfs.y
+        local wx = wolfs.x
+        local wy = wolfs.y - 64
         table.insert(drawables, {
             y        = wy,
             isScaled = false,
@@ -83,7 +84,7 @@ function drawSort.draw(map, scale)
     for _, inst in ipairs(grass.instances) do
         local gx, gy, ganim = inst.x, inst.y, inst.anim
         table.insert(drawables, {
-            y        = gy,
+            y        = gy - 16,
             isScaled = false,
             draw     = function()
                 ganim:draw(grass.spriteSheet, gx, gy, nil, 2, nil, 12, 12)
@@ -169,7 +170,6 @@ function drawSort.draw(map, scale)
     -- Firecharges
     for _, sb in ipairs(Firecharges) do
         local sx, sy = sb.pos.x, sb.pos.y
-        local burstTime = 1
         table.insert(drawables, {
             y        = sy,
             isScaled = false,
@@ -182,7 +182,6 @@ function drawSort.draw(map, scale)
                     16,
                     16
                 )
-                
             end
         })
     end

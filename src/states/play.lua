@@ -126,7 +126,7 @@ end
 
 function PlayState:mousereleased(x, y, button)
     if (button == 1 or button == 2) and player.state == 2 and player.spell then
-        if player.chargeTime > 0.7 then
+        if player.chargeTime > 0.1 then
             player:releaseCharging()
         else
             player.chargingSpell = nil
