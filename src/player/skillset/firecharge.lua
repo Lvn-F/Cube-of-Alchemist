@@ -129,11 +129,11 @@ local function c_Firecharge(world)
 
                 if dir.x >= 0 then
                     player.facing = "right"
-                    player.anim = player.animate.right
+                    player.anim = player.animate.chargeR
                     player.chargingSpell.pos.x = player.x - 8
                 else
                     player.facing = "left"
-                    player.anim = player.animate.left
+                    player.anim = player.animate.chargeL
                     player.chargingSpell.pos.x = player.x - 32
                 end
             end

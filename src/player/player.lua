@@ -44,7 +44,9 @@ local function c_Player(world)
         down = anim8.newAnimation(player.grid('1-4', 4), player.animSpeed),
         dash = anim8.newAnimation(player.grid('1-2', 5), player.animSpeed),
         dashL = anim8.newAnimation(player.grid('1-2', 6), player.animSpeed),
-        shadow = anim8.newAnimation(player.grid('1-1', 7), player.animSpeed)
+        shadow = anim8.newAnimation(player.grid('3-3', 5), player.animSpeed),
+        chargeL = anim8.newAnimation(player.grid('1-4',7), player.animSpeed),
+        chargeR = anim8.newAnimation(player.grid('1-4',8), player.animSpeed),
     }
     player.anim = player.animate.down
     player.facing = "down"
