@@ -4,7 +4,7 @@ local function c_Player(world)
         speed = 500,
 
         spell = 1,
-        mainSpell   = 1,   -- default to Shadowball
+        mainSpell   = 1,   -- default
         secondSpell = nil,
 
         -- 1 = normal --
@@ -14,7 +14,7 @@ local function c_Player(world)
         isCharging = false,
         chargeTime = 0,
         isDash = false,
-        dashTimer = 0.5,
+        dashTimer = 0.3,
         iframe = false,
         hitTake = false,
         hitTakeCd = 0,
@@ -113,6 +113,7 @@ local function c_Player(world)
     function player:handleState(dt)
         if player.state == 1 then -- normal gameplay
             player.isCharging = false
+            player.iframe = false
             player.speed = 500
         end
 
@@ -131,6 +132,7 @@ local function c_Player(world)
         if player.state == 3 then -- for dash, (i know it's hardcoded, atleast it work)
             player.dashTimer = player.dashTimer - dt
             player.isDash = true
+            player.iframe = true
             if player.isDash == true then
                 if love.keyboard.isDown('d') or love.keyboard.isDown('a') then
                     self.speed = 1000
@@ -182,7 +184,7 @@ local function c_Player(world)
             end
 
             
-            if #hits and self.hitTakeCd <= 0 then
+            if #hits and self.hitTakeCd <= 0 and player.iframe == false then
                 playerStat.health = playerStat.health - 0.25
                 self.hitTakeCd = 0.5
             end
@@ -226,14 +228,14 @@ local function c_Player(world)
     end
     function player:drawSpell()
         if self.state == 2 then
+            -- if self.spell == 1 then
+            --     Shadowballs.anim:draw(Shadowballs.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,Shadowballs.projectile:getWidth()/120,Shadowballs.projectile:getHeight()/2)
             if self.spell == 1 then
-                Shadowballs.anim:draw(Shadowballs.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,Shadowballs.projectile:getWidth()/120,Shadowballs.projectile:getHeight()/2)
+                Firecharges.anim:draw(Firecharges.projectile, self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale, Firecharges.projectile:getWidth()/120, Firecharges.projectile:getHeight()/2)
             elseif self.spell == 2 then
                 lightShards:draw(player.x, player.y)
             elseif self.spell == 3 then
-                WindCharges.anim:draw(WindCharges.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y,self.chargingSpell.rotation,self.chargingSpell.scale, self.chargingSpell.scale,WindCharges.projectile:getWidth()/120,WindCharges.projectile:getHeight()/2)
-            elseif self.spell == 4 then
-                Firecharges.anim:draw(Firecharges.projectile, self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale, Firecharges.projectile:getWidth()/120, Firecharges.projectile:getHeight()/2)
+                WindCharges.anim:draw(WindCharges.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale,WindCharges.projectile:getWidth()/120,WindCharges.projectile:getHeight()/2)
             end
         end
     end

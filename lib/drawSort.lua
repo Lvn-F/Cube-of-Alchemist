@@ -73,6 +73,15 @@ function drawSort.draw(map, scale)
         })
     end
 
+    table.insert(drawables, {
+        y = dummy.y + 72,
+        isScaled = false,
+        draw = function()
+            dummy:draw()
+            player.animate.shadow:draw(player.spriteSheet, dummy.x + 24, dummy.y + 110, nil, 2.5, nil, 16, 23)
+        end
+    })
+
     -- ── Fire ─────────────────────────────────────────────────────────────
     table.insert(drawables, {
         y        = fire.y,
@@ -144,25 +153,14 @@ function drawSort.draw(map, scale)
             y        = sy,
             isScaled = false,
             draw     = function()
-                WindCharges.anim:draw(
+                sb.anim:draw(
                     WindCharges.projectile,
                     sx, sy,
                     sb.rotation,
                     1.5, 1.5,
-                    WindCharges.projectile:getWidth()  / 13,
-                    WindCharges.projectile:getHeight() / 2
+                    16,
+                    16
                 )
-                if WindCharges.animate.spawn.position == 4 then
-                    WindCharges.anim = WindCharges.animate.release
-                    WindCharges.anim:draw(
-                    WindCharges.projectile,
-                    sx, sy,
-                    sb.rotation,
-                    1.5, 1.5,
-                    WindCharges.projectile:getWidth()  / 13,
-                    WindCharges.projectile:getHeight() / 2
-                    )
-                end
             end
         })
     end

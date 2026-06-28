@@ -50,7 +50,7 @@ function PlayState:draw()
         love.graphics.pop()
 
         herbs:draw()
-        dummy:draw()
+        -- dummy:draw()
         drawSort.draw(map, 3)
         player:drawSpell()
         Shadowballs:drawtest()

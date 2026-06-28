@@ -53,7 +53,7 @@ local function c_Shadowball(world)
     end
 
 function Shadowballs:startCharge()
-    if player.spell == 1 then
+    if player.spell == 4 then
         player.state = 2
         player.chargeTime = 0
         player.chargingSpell = {
@@ -66,7 +66,7 @@ function Shadowballs:startCharge()
     end
 end
     function Shadowballs:charge(dt)
-        if player.spell == 1 then
+        if player.spell == 4 then
             if player.state == 2 and player.chargingSpell then
                 player.speed = 250
                 player.chargeTime = math.min(player.chargeTime + dt, 1)
@@ -85,7 +85,7 @@ end
         end
     end
     function Shadowballs:endCharge()
-        if player.spell == 1 then
+        if player.spell == 4 then
             if player.state == 2 and player.chargingSpell then
                 -- self.speed = 500
                 local px, py = player.x, player.y

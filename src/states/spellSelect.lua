@@ -17,10 +17,10 @@ local SpellSelect = {}
 -- key must match player.mainSpell / player.secondSpell values.
 -- ─────────────────────────────────────────────────────────────────────────────
 local SPELLS = {
-    { key = 1, name = "Shadowball",  symbol = "◆", desc = "Charge and hurl a dark projectile", iconPath = pathImg.skill .. "shadowballIcon.png"},
-    { key = 2, name = "Light Shard", symbol = "★", desc = "Release a blinding flash of light", iconPath = pathImg.skill .. "lightshardIcon.png" },
-    { key = 3, name = "Wind Charge", symbol = "↑", desc = "Blast forward with a gust of wind",  iconPath = pathImg.skill .. "winchargeIcon.png" },
-    { key = 4, name = "Firecharge",  symbol = "🔥", desc = "Charge up and unleash a fiery blast", iconPath = pathImg.skill .. "firechargesIcon.png"},
+    -- { key = 1, name = "Shadowball", desc = "Charge and hurl a dark projectile", iconPath = pathImg.skill .. "shadowballIcon.png"},
+    { key = 1, name = "Firecharge", desc = "Charge up and unleash a fiery blast", iconPath = pathImg.skill .. "firechargesIcon.png"},
+    { key = 2, name = "Light Shard", desc = "Release a blinding flash of light", iconPath = pathImg.skill .. "lightshardIcon.png" },
+    { key = 3, name = "Wind Charge", desc = "Blast forward with a gust of wind",  iconPath = pathImg.skill .. "winchargeIcon.png" },
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -124,11 +124,11 @@ local function drawIconCircle(x, y, r, borderCol, bgCol, scale)
 end
 
 -- Draws a symbol centered inside a circle (used when no icon image exists).
-local function drawSymbol(x, y, r, symbol, col, scale, font)
-    love.graphics.setFont(font)
-    setColor(col)
-    love.graphics.printf(symbol, x - r * (scale or 1), y - 16 * (scale or 1), r * 2 * (scale or 1), "center")
-end
+-- local function drawSymbol(x, y, r, symbol, col, scale, font)
+--     love.graphics.setFont(font)
+--     setColor(col)
+--     love.graphics.printf(symbol, x - r * (scale or 1), y - 16 * (scale or 1), r * 2 * (scale or 1), "center")
+-- end
 
 local function pointInCircle(px, py, cx, cy, r)
     local dx, dy = px - cx, py - cy

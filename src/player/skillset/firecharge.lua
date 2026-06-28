@@ -21,8 +21,6 @@ local function c_Firecharge(world)
         return Vector(wx - px, wy - py):normalized()
     end
 
-    -- Spawns the projectile that flies out once the player releases the cast.
-    -- `dir` is the direction the player was facing/aiming at release time.
     function S_firecharge(x, y, dir)
         local firecharge = {
             x = x,
@@ -92,7 +90,7 @@ local function c_Firecharge(world)
     end
 
     function Firecharges:startCharge()
-        if player.spell == 4 then
+        if player.spell == 1 then
             player.state = 2
             player.chargeTime = 0
             self.anim = self.animate.charge
@@ -108,7 +106,7 @@ local function c_Firecharge(world)
     end
 
     function Firecharges:charge(dt)
-        if player.spell == 4 then
+        if player.spell == 1 then
             if player.state == 2 and player.chargingSpell then
                 player.speed = 250
                 player.chargeTime = math.min(player.chargeTime + dt, 1)
@@ -143,9 +141,10 @@ local function c_Firecharge(world)
     end
 
     function Firecharges:endCharge()
-        if player.spell == 4 then
+        if player.spell == 1 then
             if player.state == 2 and player.chargingSpell then
-                if player.chargeTime <= 0.7 then
+                -- if player.chargeTime <= 0.7 then
+                if self.anim ~= self.animate.chargeFull then
                     player.isCharging = false
                     player.state = 1
                     return

@@ -505,8 +505,8 @@ function Crafting:update(dt)
     local mx, my = love.mouse.getPosition()
     hoverSlot     = nil
     hoverCraftBtn = false
-    world:update(dt)
-    updateGame(dt)
+    -- world:update(dt)
+    -- updateGame(dt)
     for y = 1, layout.inv.rows do
         for x = 1, layout.inv.cols do
             local rx, ry, rw, rh = invSlotRect(x, y)

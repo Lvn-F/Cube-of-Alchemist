@@ -23,7 +23,7 @@ local Recipes = {
         inputs = { { name = "Fire Herb", count = 1} },
         result = {
             name = "Fire Essence",
-            imgPath = pathImg.consumable .. "potion.png",
+            imgPath = pathImg.consumable .. "shardfire.png",
             desc = "Recharge your fire affinity",
             count = 1,
         }

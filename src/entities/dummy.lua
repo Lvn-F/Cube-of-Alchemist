@@ -3,7 +3,8 @@ local function c_Dummy(world)
         sprite = love.graphics.newImage('assets/sprite/entities/dummy.png'),
         x = 500,
         y = 500,
-        flashTimer = 0
+        flashTimer = 0,
+        flashCd = 0
     }
 
     dummy.collider = world:newBSGRectangleCollider(dummy.x, dummy.y, 40, 80, 8)
@@ -19,7 +20,9 @@ local function c_Dummy(world)
     function dummy:update(dt)
         if self.flashTimer > 0 then
             self.flashTimer = self.flashTimer - dt
-            if self.flashTimer < 0 then self.flashTimer = 0 end
+            if self.flashTimer < 0 then
+                self.flashTimer = 0
+            end
         end
     end
 
