@@ -23,6 +23,7 @@ local function c_LightShard()
             player.speed = 200
             player.chargeTime = math.min(player.chargeTime + dt, 1)
             player.anim = player.animate.down
+            player.facing = "down"
             self.anim:update(dt)
         end
     end

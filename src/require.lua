@@ -1,6 +1,9 @@
 function getRequire()
     mapCollider = require 'map/mapCollider'
+    require 'src/levels/transition'
+    require 'src/levels/loadMap'
     require 'map/drawMap'
+    SpellCombine = require 'src/util/spellCombine'
     Fog = require("hadeh/fog")
     fog = Fog
     fog:load()
@@ -31,11 +34,15 @@ function getRequire()
     c_LightShard = require 'src/player/skillset/lightShard'
     c_WindCharge = require 'src/player/skillset/windCharge'
     c_Firecharge = require 'src/player/skillset/firecharge'
+    c_Fireburst = require 'src/player/skillset2/fireburst'
     -- Spell Call
     shadowball = c_Shadowball(world)
     lightShards = c_LightShard(world)
     windCharges = c_WindCharge(world)
     firecharges = c_Firecharge(world)
+
+    -- Spell (Combined)
+    fireburst = c_Fireburst(world)
     
     c_Player = require 'src/player/player'
     player = c_Player(world)

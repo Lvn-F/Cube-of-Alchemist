@@ -24,12 +24,12 @@ function love.keypressed(key)
         end
     end
 
-    if key == 'q' and player.isCharging == false then
-        player.spell = player.spell - 1
-    end
-    if key == 'e' and player.isCharging == false then
-        player.spell = player.spell + 1
-    end
+    -- if key == 'q' and player.isCharging == false then
+    --     player.spell = player.spell - 1
+    -- end
+    -- if key == 'e' and player.isCharging == false then
+    --     player.spell = player.spell + 1
+    -- end
     --
 end
 

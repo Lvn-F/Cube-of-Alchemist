@@ -117,6 +117,7 @@ local function c_Player(world)
             player.isCharging = false
             player.iframe = false
             player.speed = 500
+            player.animSpeed = 0.13
         end
 
         if player.state == 2 then -- for charging spell
@@ -127,6 +128,7 @@ local function c_Player(world)
             if player.chargeTime > 1 then
                 player.chargeTime = 1
             end
+            player.animSpeed = 1
         else
             player.chargeTime = 0
         end
@@ -199,18 +201,21 @@ local function c_Player(world)
         lightShards:startCharge()
         WindCharges:startCharge()
         Firecharges:startCharge()
+        FireBurst:startCharge()
     end
     function player:updateCharging(dt)
         Shadowballs:charge(dt)
         lightShards:charge(dt)
         WindCharges:charge(dt)
         Firecharges:charge(dt)
+        FireBurst:charge(dt)
     end
     function player:releaseCharging()
         Shadowballs:endCharge()
         lightShards:endCharge()
         WindCharges:endCharge()
         Firecharges:endCharge()
+        FireBurst:endCharge()
     end
 
     -- # Player:Update
@@ -238,6 +243,8 @@ local function c_Player(world)
                 lightShards:draw(player.x, player.y)
             elseif self.spell == 3 then
                 WindCharges.anim:draw(WindCharges.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale,WindCharges.projectile:getWidth()/120,WindCharges.projectile:getHeight()/2)
+            elseif self.spell == 11 then
+                FireBurst.anim:draw(FireBurst.projectile,self.chargingSpell.pos.x, self.chargingSpell.pos.y, nil, self.chargingSpell.scale, self.chargingSpell.scale,24,FireBurst.projectile:getHeight()/6)
             end
         end
     end

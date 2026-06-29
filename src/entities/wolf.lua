@@ -39,7 +39,7 @@ local function c_wolf()
         }
         wolfs.anim = wolfs.animate.idleDown 
 
-        wolfs.collider = world:newBSGRectangleCollider(wolfs.x, wolfs.y + 32, 55, 30, 8)
+        wolfs.collider = world:newBSGRectangleCollider(wolfs.x, wolfs.y + 32, 200, 200, 8)
         wolfs.collider:setCollisionClass("Enemy")
         wolfs.collider:setFixedRotation(true)
         wolfs.collider:setType('dynamic')

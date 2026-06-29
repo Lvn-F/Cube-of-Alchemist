@@ -1,18 +1,27 @@
+-- map/drawMap.lua
+
+local function safeDraw(layerName)
+    local layer = map.layers[layerName]
+    if layer then
+        map:drawLayer(layer)
+    end
+end
 
 function drawBefore()
-    map:drawLayer(map.layers["base0"])
-    map:drawLayer(map.layers["base"])
-    map:drawLayer(map.layers["base1"])
-    map:drawLayer(map.layers["grassL"])
-    -- map:drawLayer(map.layers["environtmentBottom"])
-    map:drawLayer(map.layers["envBot2"])
+    safeDraw("base0")
+    safeDraw("base")
+    safeDraw("base1")
+    safeDraw("grassL")
+    -- safeDraw("environtmentBottom")
+    safeDraw("envBot2")
 end
+
 function drawAfter()
-    map:drawLayer(map.layers["environtmentTop"])
-    map:drawLayer(map.layers["grassR"])
+    safeDraw("environtmentTop")
+    safeDraw("grassR")
     love.graphics.push()
         love.graphics.scale(4,4)
-        map:drawLayer(map.layers["shaderlayer1"])
+        safeDraw("shaderlayer1")
     love.graphics.pop()
-    map:drawLayer(map.layers["shaderlayercolor"])
+    safeDraw("shaderlayercolor")
 end

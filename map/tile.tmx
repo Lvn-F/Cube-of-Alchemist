@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="248">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="250">
  <editorsettings>
   <export target="tile.lua" format="lua"/>
  </editorsettings>
@@ -408,10 +408,10 @@
   <object id="117" name="herbPlant" x="428.333" y="104.833">
    <point/>
   </object>
-  <object id="112" name="fireHerbPlant" x="304.5" y="219.333">
+  <object id="112" name="fireHerbPlant" x="292.25" y="264.583">
    <point/>
   </object>
-  <object id="116" name="fireHerbPlant" x="403.25" y="206.917">
+  <object id="116" name="fireHerbPlant" x="408.75" y="210.667">
    <point/>
   </object>
   <object id="120" name="grasss " x="269.879" y="393.894">
@@ -538,6 +538,9 @@
    <point/>
   </object>
   <object id="247" name="toBossRoom" x="718.667" y="226" width="31.3333" height="51.3333"/>
+  <object id="248" name="player" x="336" y="199.75">
+   <point/>
+  </object>
  </objectgroup>
  <layer id="17" name="shaderlayer1" width="27" height="27" opacity="0.04">
   <data encoding="csv">

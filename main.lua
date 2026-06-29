@@ -10,6 +10,7 @@ function love.load()
     require 'src/require'
     getRequire()
     mapCollider()
+    transitions:init(map)
 
     GS = require 'lib/hump/gamestate'
     PlayState = require 'src/states/play'

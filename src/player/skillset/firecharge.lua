@@ -32,7 +32,7 @@ local function c_Firecharge(world)
             dir = dir,
             rotation = dir:angleTo(Vector(1, 0)),
             rad = 3,
-            speed = 450 + player.chargeTime * 500,
+            speed = 450 + (player.chargeTime * 500),
             anim = Firecharges.animate.release:clone(),
         }
         firecharge.collider = world:newBSGRectangleCollider(x - 32/2, y - 32/2, 32, 32, 16)
@@ -175,17 +175,17 @@ local function c_Firecharge(world)
         end
     end
 
-    function Firecharges:draw()
-        for _, a in ipairs(Firecharges) do
-            a.anim:draw(
-                self.projectile,
-                a.pos.x, a.pos.y,
-                a.rotation,
-                2, 2,
-                self.projectile:getWidth() / 13,
-                self.projectile:getHeight() / 2
-            )
-        end
-    end
+    -- function Firecharges:draw()
+    --     for _, a in ipairs(Firecharges) do
+    --         a.anim:draw(
+    --             self.projectile,
+    --             a.pos.x, a.pos.y,
+    --             a.rotation,
+    --             2, 2,
+    --             self.projectile:getWidth() / 13,
+    --             self.projectile:getHeight() / 2
+    --         )
+    --     end
+    -- end
 end
 return c_Firecharge

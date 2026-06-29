@@ -63,6 +63,11 @@ local function c_Herb(world, map)
             end
         end
     end
+    function herbs_obj:destroy()
+        for _, h in ipairs(herbs) do
+            if not h.looted then h.collider:destroy() end
+        end
+    end
 
     function herbs_obj:draw()
         for _, h in ipairs(herbs) do

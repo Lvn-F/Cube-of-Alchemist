@@ -183,6 +183,39 @@ function drawSort.draw(map, scale)
             end
         })
     end
+    -- for _, fb in ipairs(FireBurst) do
+    --     local sx, sy = fb.pos.x, fb.pos.y
+    --     table.insert(drawables, {
+    --         y        = sy,
+    --         isScaled = false,
+    --         draw     = function()
+    --             fb.animR:draw(
+    --                 FireBurst.projectile,
+    --                 sx, sy ,
+    --                 fb.rotation,
+    --                 1.5, 1.5,
+    --                 32,
+    --                 32
+    --             )
+    --             fb.animO:draw(
+    --                 FireBurst.projectile,
+    --                 sx, sy ,
+    --                 fb.rotation,
+    --                 1.5, 1.5,
+    --                 32,
+    --                 32
+    --             )
+    --             fb.animY:draw(
+    --                 FireBurst.projectile,
+    --                 sx, sy ,
+    --                 fb.rotation,
+    --                 1.5, 1.5,
+    --                 32,
+    --                 32
+    --             )
+    --         end
+    --     })
+    -- end
     
 
     -- ── Sort ascending by world Y (back → front) ─────────────────────────

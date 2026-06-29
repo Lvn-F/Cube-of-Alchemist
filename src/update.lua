@@ -1,5 +1,6 @@
 function updateGame(dt)
     map:update(dt)
+    transitions:update(dt)
     -- player
     player:update(dt)
 
@@ -7,6 +8,7 @@ function updateGame(dt)
     lightShards:update(dt)
     WindCharges:update(dt)
     Firecharges:update(dt)
+    FireBurst:update(dt)
     --
 
     -- Object

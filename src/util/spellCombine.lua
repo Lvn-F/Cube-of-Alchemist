@@ -1,10 +1,10 @@
 local SpellCombine = {}
 
 local RECIPES = {
-    { a = 1, b = 2, result = 3 },   -- Shadowball + Light Shard -> Wind Charge
+    { a = 1, b = 3, result = 11 },  -- Firecharge + Wind Charge -> Fireburst
     { a = 2, b = 2, result = 1 },   -- LightShard + LightShard  -> ???
     { a = 1, b = 1, result = 1 },   -- Shadowballs + Shadowball ->   
-    { a = 2, b = 2, result = 1 },
+    { a = 4, b = 2, result = 1 },
     { a = 2, b = 2, result = 1 },
     { a = 2, b = 2, result = 1 },
 }

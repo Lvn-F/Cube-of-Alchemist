@@ -5,4 +5,5 @@ function createCollisionClasses()
     world:addCollisionClass('Player', {ignores = { 'Ignore'}})
     world:addCollisionClass('Enemy', {ignores = {'Player'}})
     world:addCollisionClass('Projectile', {ignores = { 'Player', 'MapPassable', 'Ignore', 'Projectile'}})
+    world:addCollisionClass('Transition', {ignores = {'All'}})
 end

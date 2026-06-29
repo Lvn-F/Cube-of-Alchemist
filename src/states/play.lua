@@ -1,5 +1,3 @@
-local SpellCombine = require 'src/util/spellCombine'
-
 local PlayState = {}
 
 inventory    = require 'src/invensystem/inventory'
@@ -52,8 +50,10 @@ function PlayState:draw()
         herbs:draw()
         -- dummy:draw()
         drawSort.draw(map, 3)
+        transitions:draw()
         player:drawSpell()
-        Shadowballs:drawtest()
+        -- Shadowballs:drawtest()
+        FireBurst:draw()
 
         love.graphics.push()
             love.graphics.scale(3, 3)
@@ -105,6 +105,9 @@ function PlayState:keypressed(key)
 
     if key == 'f' then
         herbs:tryLoot(inv)
+        if transitions.canUse then
+            loadMap(transitions.canUse.destMap)
+        end
     end
 end
 
