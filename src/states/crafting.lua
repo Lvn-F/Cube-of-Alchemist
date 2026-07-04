@@ -337,7 +337,7 @@ local function drawDescriptionBox()
         love.graphics.printf(slotData.item.desc or "", x + 10, y + 30, w - 20, "left")
     else
         setColor(COL.textSub)
-        love.graphics.printf("Hover an item to see its description.", x + 10, y + 8, w - 20, "left")
+        love.graphics.printf("", x + 10, y + 8, w - 20, "left")
     end
 end
 
@@ -369,8 +369,8 @@ local function drawCraftingGrid()
             local isHover    = hoverSlot and hoverSlot.kind == "craft" and hoverSlot.x == x and hoverSlot.y == y
             local isSelected = selectedSlot and selectedSlot.kind == "craft" and selectedSlot.x == x and selectedSlot.y == y
 
-            drawSlotBg(rx, ry, rw, rh, isHover, isSelected, COL.craftSlotBg, COL.craftBorder)
             drawSlotContents(rx, ry, rw, rh, getCraftSlot(x, y))
+            drawSlotBg(rx, ry, rw, rh, isHover, isSelected, COL.craftSlotBg, COL.craftBorder)
         end
     end
 end
@@ -430,7 +430,7 @@ local function drawCraftButton()
 end
 
 local function drawCraftingWindow()
-    drawWindowChrome(layout.craft, "Crafting")
+    drawWindowChrome(layout.craft, "Transmute")
     drawCraftingGrid()
     drawResultPreview()
     drawCraftButton()

@@ -142,16 +142,12 @@ local function c_Player(world)
                     self.speed = 1000
                     if player.facing == "right" then
                         self.anim = self.animate.dash
+                        -- self.collider:setLinearVelocity(800, 0)
                     end
                     if player.facing == "left" then
                         self.anim = self.animate.dashL
+                        -- self.collider:setLinearVelocity(-800, 0)
                     end
-                    -- if self.animate.dash.position == 2 then
-                    --     self.animate.dash:pause()
-                    -- end
-                    -- if self.animate.dashL.position == 2 then
-                    --     self.animate.dashL:pause()
-                    -- end
                 elseif love.keyboard.isDown('w') or love.keyboard.isDown('s') then
                     self.speed = 1000
                 end
@@ -169,8 +165,10 @@ local function c_Player(world)
             end
             if player.dashTimer < 0 then
                 self.state = 1
-                self.dashTimer = 0.3
+                self.dashTimer = 0.2
             end
+        else
+            player.state = 1
         end
     end
 

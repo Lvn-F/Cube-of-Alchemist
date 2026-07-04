@@ -1,21 +1,5 @@
--- src/states/spellSelect.lua
---
--- Spell selection overlay (pushed on top of PlayState).
--- Two equipped slots at the top:
---   LEFT slot  (blue)  = main spell   → fired with left-click in gameplay
---   RIGHT slot (red)   = second spell → combined with main on right-click
---
--- Clicking a spell circle in the grid:
---   Left-click  → assign to main slot
---   Right-click → assign to second slot
-
 local SpellSelect = {}
 
--- ─────────────────────────────────────────────────────────────────────────────
--- SPELL REGISTRY
--- Add new spells here. iconPath can be nil (shows a placeholder symbol).
--- key must match player.mainSpell / player.secondSpell values.
--- ─────────────────────────────────────────────────────────────────────────────
 local SPELLS = {
     -- { key = 1, name = "Shadowball", desc = "Charge and hurl a dark projectile", iconPath = pathImg.skill .. "shadowballIcon.png"},
     { key = 1, name = "Firecharge", desc = "Charge up and unleash a fiery blast", iconPath = pathImg.skill .. "firechargesIcon.png"},
