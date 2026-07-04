@@ -142,7 +142,7 @@ local function c_Firecharge(world)
 
     function Firecharges:endCharge()
         if player.spell == 1 then
-            if  player.chargingSpell then
+            if player.state == 2 and player.chargingSpell then
                 -- if player.chargeTime <= 0.7 then
                 if self.anim ~= self.animate.chargeFull then
                     player.isCharging = false

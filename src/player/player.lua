@@ -164,11 +164,12 @@ local function c_Player(world)
                 
             end
             if player.dashTimer < 0 then
+                if love.keyboard.isDown ~= 'w' or love.keyboard.isDown ~= 'd' or love.keyboard.isDown ~= 's' or love.keyboard.isDown ~= 'a'then
+                    
+                end
                 self.state = 1
                 self.dashTimer = 0.2
             end
-        else
-            player.state = 1
         end
     end
 

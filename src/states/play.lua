@@ -82,7 +82,7 @@ function PlayState:keypressed(key)
     if key == 'escape' then
         love.event.quit()
     end
-    -- if player.state == 1 then
+    if player.state == 1 then
         if key == 'tab' then
             local SpellSelect = require 'src/states/spellSelect'
             GS.push(SpellSelect)
@@ -101,7 +101,7 @@ function PlayState:keypressed(key)
         elseif key == 'space' and player.state == 1 then
             player.state = 3
         end
-    -- end
+    end
 
     if key == 'f' then
         herbs:tryLoot(inv)
