@@ -7,6 +7,7 @@ function getRequire()
     Fog = require("hadeh/fog")
     fog = Fog
     fog:load()
+    require 'src/util/math'
 
     --
     pathImg = {
@@ -59,8 +60,10 @@ function getRequire()
     -- Entities
     c_Dummy = require 'src/entities/dummy'
     c_wolf = require 'src/entities/wolf'
+    c_Slime = require 'src/entities/slime'
     -- Entities Call
     dummy = c_Dummy(world)
     wolf = c_wolf(world)
+    slime = c_Slime(world)
 end
 return require

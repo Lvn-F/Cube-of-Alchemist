@@ -15,6 +15,7 @@ function loadMap(mapPath)
     if herbs and herbs.destroy then herbs:destroy() end
     if grass and grass.destroy then grass:destroy() end
     if wolf and wolf.destroy then wolf:destroy() end
+    if slime and slime.destroy then slime:destroy() end
 
     map = sti(mapPath .. '.lua')
 
@@ -23,7 +24,8 @@ function loadMap(mapPath)
 
     herbs = c_Herb(world, map)
     grass = c_Grass(world, map)
-    worlf = c_wolf(world, map)
+    wolf = c_wolf(world, map)
+    slime = c_Slime(world, map)
 
     local sx, sy = findSpawn(map)
     if sx then

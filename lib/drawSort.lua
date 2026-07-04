@@ -60,6 +60,22 @@ function drawSort.draw(map, scale)
         draw     = function() player:draw() end
     })
 
+
+    -- entities
+    for _, inst in ipairs(slime.instances) do
+        local sx, sy = inst.x, inst.y
+        table.insert(drawables, {
+            y = sy,
+            isScaled = false,
+            draw = function()
+                -- slime.animate.shadow:draw(slime.sprite, inst.x, inst.y + 30, nil, 2.5, nil, 16, 23)
+                player.animate.shadow:draw(player.spriteSheet, inst.x, inst.y+32, nil, 2.5, nil, 16, 23)
+                if inst.flashTimer > 0 then love.graphics.setShader(shaders.whiteout) end
+                inst.anim:draw(slime.sprite, sx, sy, nil, 2 * inst.scaleX, 2, 16, 16)
+                love.graphics.setShader()
+            end
+        })
+    end
     -- ── Wolf instances ────────────────────────────────────────────────────
     for _, wolfs in ipairs(wolf.instance) do
         local wx = wolfs.x

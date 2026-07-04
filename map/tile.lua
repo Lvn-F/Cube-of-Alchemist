@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 19,
-  nextobjectid = 250,
+  nextobjectid = 255,
   properties = {
     ["ySortOffset"] = -16
   },
@@ -1512,45 +1512,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 105,
-          name = "wolf",
-          type = "wolf",
-          shape = "point",
-          x = 82,
-          y = 560,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 108,
-          name = "wolf",
-          type = "wolf",
-          shape = "point",
-          x = 143.5,
-          y = 564,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 109,
-          name = "wolf",
-          type = "wolf",
-          shape = "point",
-          x = 111,
-          y = 606.5,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 111,
           name = "herbPlant",
           type = "",
@@ -2162,12 +2123,38 @@ return {
           properties = {}
         },
         {
+          id = 254,
+          name = "toBossRoom",
+          type = "",
+          shape = "rectangle",
+          x = 210.667,
+          y = 103,
+          width = 31.3333,
+          height = 28.3333,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
           id = 248,
           name = "player",
           type = "",
           shape = "point",
-          x = 336,
-          y = 199.75,
+          x = 336.25,
+          y = 196.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 252,
+          name = "",
+          type = "",
+          shape = "point",
+          x = 185.75,
+          y = 242.25,
           width = 0,
           height = 0,
           rotation = 0,

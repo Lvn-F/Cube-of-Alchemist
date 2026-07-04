@@ -32,10 +32,10 @@ local function c_Player(world)
     player.collider = world:newBSGRectangleCollider(player.x, player.y, 40, 40, 12)
     player.collider:setCollisionClass("Player")
     player.collider:setFixedRotation(true)
-    player.collider:setLinearDamping(player.baseDamping)
-    player.collider:setAngularDamping(1)
-    player.collider:setFriction(0)
-    player.collider:setMass(1)
+    -- player.collider:setLinearDamping(player.baseDamping)
+    -- player.collider:setAngularDamping(1)
+    -- player.collider:setFriction(0)
+    -- player.collider:setMass(1)
     player.grid = anim8.newGrid(32, 32, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
     player.animate = {
         right = anim8.newAnimation(player.grid('1-4', 1), player.animSpeed),
@@ -177,20 +177,19 @@ local function c_Player(world)
     function player:collide(dt)
         if self.hitTakeCd > 0 then
             self.hitTakeCd = self.hitTakeCd - dt
+            if self.hitTakeCd < 0 then self.hitTakeCd = 0 end
         end
 
         local hits = world:queryCircleArea(self.x, self.y, 20, {'Enemy'})
-        for _, h in ipairs(hits) do
-            local obj = h:getObject()
-            if obj and obj.hit then
-                obj:hit()
-            end
 
-            
-            if #hits and self.hitTakeCd <= 0 and player.iframe == false then
-                playerStat.health = playerStat.health - 0.25
-                self.hitTakeCd = 0.5
-            end
+        if #hits > 0 and self.hitTakeCd <= 0 and player.iframe == false then
+            playerStat.health = playerStat.health - 0.25
+            self.hitTakeCd = 0.5
+
+            -- Knock the player away from the first enemy touched
+            local h = hits[1]
+            local kb = Vector(self.x - h:getX(), self.y - h:getY()):normalized() * 220
+            self.collider:setLinearVelocity(kb.x, kb.y)
         end
     end
     

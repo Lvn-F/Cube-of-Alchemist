@@ -18,7 +18,7 @@ local function c_wolf()
     }
 
     wolf.instance = {}
-    for i = 1, 3 do
+    for i = 1, 0 do
         local wolfs = {
             x = math.random(200, 600),
             y = math.random(1000, 1250),
