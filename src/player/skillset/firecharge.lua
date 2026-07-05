@@ -79,7 +79,7 @@ local function c_Firecharge(world)
             local hits = world:queryCircleArea(self.pos.x, self.pos.y, 20, {'Enemy', 'Map'})
             for _, h in ipairs(hits) do
                 local obj = h:getObject()
-                if obj and obj.hit then obj:hit() end
+                if obj and obj.hit then obj:hit(damageMod[1]) end
             end
             if #hits > 0 then
                 self:playBurst()

@@ -60,34 +60,35 @@ local function c_Player(world)
         local isMoving = false
 
         --
-        if love.keyboard.isDown('d') then
-            vxPlayer = self.speed
-            self.anim = self.animate.right
-            isMoving = true
-            self.facing = "right"
-        elseif love.keyboard.isDown('a') then
-            vxPlayer = -self.speed
-            self.anim = self.animate.left
-            isMoving = true
-            self.facing = "left"
+        if player.state ~= 4 then
+            if love.keyboard.isDown('d') then
+                vxPlayer = self.speed
+                self.anim = self.animate.right
+                isMoving = true
+                self.facing = "right"
+            elseif love.keyboard.isDown('a') then
+                vxPlayer = -self.speed
+                self.anim = self.animate.left
+                isMoving = true
+                self.facing = "left"
+            end
+            if love.keyboard.isDown ('w') then
+                vyPlayer = -self.speed
+                self.anim = self.animate.up
+                isMoving = true
+                self.facing = "up"
+            elseif love.keyboard.isDown ('s') then
+                vyPlayer = self.speed
+                self.anim = self.animate.down
+                isMoving = true
+                self.facing = "down"
+            end
+            if vxPlayer ~= 0 and vyPlayer ~= 0 then -- prevent double speed while moving diagonally
+                local xy = math.sqrt(vxPlayer*vxPlayer + vyPlayer*vyPlayer)
+                vxPlayer = vxPlayer / xy * self.speed
+                vyPlayer = vyPlayer / xy * self.speed
+            end
         end
-        if love.keyboard.isDown ('w') then
-            vyPlayer = -self.speed
-            self.anim = self.animate.up
-            isMoving = true
-            self.facing = "up"
-        elseif love.keyboard.isDown ('s') then
-            vyPlayer = self.speed
-            self.anim = self.animate.down
-            isMoving = true
-            self.facing = "down"
-        end
-        if vxPlayer ~= 0 and vyPlayer ~= 0 then -- prevent double speed while moving diagonally
-            local xy = math.sqrt(vxPlayer*vxPlayer + vyPlayer*vyPlayer)
-            vxPlayer = vxPlayer / xy * self.speed
-            vyPlayer = vyPlayer / xy * self.speed
-        end
-
         if isMoving == false then -- reset while idle
             self.anim:gotoFrame(1)
         end
@@ -161,7 +162,6 @@ local function c_Player(world)
                         self.anim = self.animate.dashL
                     end
                 end
-                
             end
             if player.dashTimer < 0 then
                 if love.keyboard.isDown ~= 'w' or love.keyboard.isDown ~= 'd' or love.keyboard.isDown ~= 's' or love.keyboard.isDown ~= 'a'then

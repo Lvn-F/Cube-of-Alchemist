@@ -5,7 +5,7 @@ function love.load()
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     world = wf.newWorld(0, 0, true)
-    map = sti('map/tile.lua')
+    map = sti('map/home.lua')
 
     require 'src/require'
     getRequire()

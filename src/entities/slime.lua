@@ -67,9 +67,9 @@ local function c_Slime(world, map)
             inst.anim = slime.animate.idle:clone()
         end
 
-        function inst:hit()
+        function inst:hit(damageMod)
             if self.state == "dying" then return end
-            self.hp = self.hp - 1
+            self.hp = self.hp - (damageMod or 1)
             self.flashTimer = 0.15
             self.state = "alert" -- getting hit always alerts the slime
 

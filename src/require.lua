@@ -8,6 +8,7 @@ function getRequire()
     fog = Fog
     fog:load()
     require 'src/util/math'
+    damageMod = require 'src/player/damageMod'
 
     --
     pathImg = {
