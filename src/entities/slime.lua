@@ -14,9 +14,9 @@ local function c_Slime(world, map)
         left  = anim8.newAnimation(slime.grid('11-14', 3), slime.animSpeed),
         alert = anim8.newAnimation(slime.grid('11-14', 1), slime.animSpeed * 0.6),
         dash = anim8.newAnimation(slime.grid('11-14', 4), slime.animSpeed),
-        die   = anim8.newAnimation(slime.grid('15-20', 1), 0.1, function(anim) anim.onLoop = nil end),
+        die   = anim8.newAnimation(slime.grid('16-21', 1), 0.05, function(anim) anim.onLoop = nil end),
         -- dash = anim8.newAnimation(slime.grid('15-15', 2), 0.1),
-        shadow = anim8.newAnimation(slime.grid('15-15', 3), 0.1),
+        shadow = anim8.newAnimation(slime.grid('16-16', 3), 0.1),
     }
 
     local detectRadius = 300 -- idle -> alert

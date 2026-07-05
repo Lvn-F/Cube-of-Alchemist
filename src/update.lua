@@ -9,6 +9,7 @@ function updateGame(dt)
     WindCharges:update(dt)
     Firecharges:update(dt)
     FireBurst:update(dt)
+    LightningStrike:update(dt)
     --
 
     -- Object

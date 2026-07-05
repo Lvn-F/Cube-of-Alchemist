@@ -51,6 +51,10 @@ function PlayState:draw()
         slime:drawDrops()
         -- dummy:draw()
         drawSort.draw(map, 3)
+        LightningStrike:draw()
+        -- if LightningStrike.active then
+        --     LightningStrike:drawArea()
+        -- end
         transitions:draw()
         player:drawSpell()
         FireBurst:draw()
@@ -121,7 +125,10 @@ function PlayState:mousepressed(x, y, button)
 
     elseif button == 2 then
         local combinedKey = getCombinedSpell()
-        if combinedKey and player.state == 1 then
+        if combinedKey == 12 and player.state == 1 then
+            player.spell = combinedKey
+            LightningStrike:focusStart()
+        elseif combinedKey and player.state == 1 then
             player.spell = combinedKey
             player:startCharging()
         end

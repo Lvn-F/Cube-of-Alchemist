@@ -16,7 +16,7 @@ function debug:player()
     love.graphics.print("isCharging : " .. tostring(player.isCharging),  1130, 200, nil, 2)
     love.graphics.print("Charge Time : " .. player.chargeTime,  1130, 225, nil, 2)
     -- love.graphics.print("Anim Pos : " .. WindCharges.animate.charge.position, 1130, 250, nil, 2)
-    love.graphics.print("Anim Pos : " .. WindCharges.animate.charge.position, 1130, 250, nil, 2)
+    love.graphics.print("Anim Pos : " .. FireBurst.animate.releaseO.position, 1130, 250, nil, 2)
     -- love.graphics.print("Charge Time : " .. lightShards.flashTimer,  1130, 250, nil, 2)
     
     love.graphics.print("Player State : " .. player.state, 400, 50, nil, 2)

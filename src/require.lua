@@ -37,6 +37,7 @@ function getRequire()
     c_WindCharge = require 'src/player/skillset/windCharge'
     c_Firecharge = require 'src/player/skillset/firecharge'
     c_Fireburst = require 'src/player/skillset2/fireburst'
+    c_LightningStrike = require 'src/player/skillset2/lightningStrike'
     -- Spell Call
     shadowball = c_Shadowball(world)
     lightShards = c_LightShard(world)
@@ -45,6 +46,7 @@ function getRequire()
 
     -- Spell (Combined)
     fireburst = c_Fireburst(world)
+    lightningStrike = c_LightningStrike(world)
     
     c_Player = require 'src/player/player'
     player = c_Player(world)

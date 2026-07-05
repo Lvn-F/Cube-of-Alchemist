@@ -12,10 +12,10 @@ local function c_Fireburst(world)
     FireBurst.animate = {
         charge     = anim8.newAnimation(FireBurst.grid('1-6', 3),   FireBurst.animSpeed),
         chargeFull = anim8.newAnimation(FireBurst.grid('7-11', 3),  FireBurst.animSpeed),
-        releaseY   = anim8.newAnimation(FireBurst.grid('12-14', 3), 0.08),
-        releaseO   = anim8.newAnimation(FireBurst.grid('12-14', 2), 0.08),
-        releaseR   = anim8.newAnimation(FireBurst.grid('12-14', 1), 0.08),
-        burst      = anim8.newAnimation(FireBurst.grid('15-22', 1), 0.07)
+        releaseY   = anim8.newAnimation(FireBurst.grid('12-17', 3), 0.08),
+        releaseO   = anim8.newAnimation(FireBurst.grid('12-17', 2), 0.08),
+        releaseR   = anim8.newAnimation(FireBurst.grid('12-17', 1), 0.08),
+        burst      = anim8.newAnimation(FireBurst.grid('20-25', 1), 0.07)
     }
     FireBurst.anim = FireBurst.animate.charge
     FireBurst.queue = {}
@@ -34,7 +34,7 @@ local function c_Fireburst(world)
             x = x,
             y = y,
             pos = Vector(x, y),
-            timer = 0.25,
+            timer = 0.4,
             dead = false,
             bursting = false,
             dir = dir,
@@ -45,7 +45,7 @@ local function c_Fireburst(world)
             animO = FireBurst.animate.releaseO:clone(),
             animR = FireBurst.animate.releaseR:clone(),
         }
-        fireburst.collider = world:newBSGRectangleCollider(x - 24, y - 24, 32, 32, 16)
+        fireburst.collider = world:newBSGRectangleCollider(x - 32, y - 32, 64, 64, 16)
         fireburst.collider:setCollisionClass("Projectile")
         fireburst.collider:setLinearVelocity(dir.x * fireburst.speed, dir.y * fireburst.speed)
 
@@ -91,13 +91,17 @@ local function c_Fireburst(world)
                 self:playBurst()
                 return
             end
+            -- if FireBurst.animate.releaseO.position == 17 then
+            --     self:playBurst()
+            --     return
+            -- end
             
             self.pos.x, self.pos.y = self.collider:getPosition()
 
-            local hits = world:queryCircleArea(self.pos.x, self.pos.y, 20, {'Enemy', 'Map'})
+            local hits = world:queryCircleArea(self.pos.x, self.pos.y, 40, {'Enemy', 'Map'})
             for _, h in ipairs(hits) do
                 local obj = h:getObject()
-                if obj and obj.hit then obj:hit() end
+                if obj and obj.hit then obj:hit(damageMod[1]) end
             end
             if #hits > 0 then
                 self:playBurst()
@@ -175,22 +179,22 @@ local function c_Fireburst(world)
                 local dirdown2 = toMouseVector(px+32, py+32)
 
                 S_fireburst(px, py, dir)
-                -- S_fireburst(px, py, dirup)
-                -- S_fireburst(px, py, dirup2)
-                -- S_fireburst(px, py, dirdown)
-                -- S_fireburst(px, py, dirdown2)
+                S_fireburst(px, py, dirup)
+                S_fireburst(px, py, dirup2)
+                S_fireburst(px, py, dirdown)
+                S_fireburst(px, py, dirdown2)
 
-                -- S_fireburst(px, py, dir/1.2)
-                -- S_fireburst(px, py, dirup/1.2)
-                -- S_fireburst(px, py, dirup2/1.2)
-                -- S_fireburst(px, py, dirdown/1.2)
-                -- S_fireburst(px, py, dirdown2/1.2)
+                S_fireburst(px, py, dir/1.2)
+                S_fireburst(px, py, dirup/1.2)
+                S_fireburst(px, py, dirup2/1.2)
+                S_fireburst(px, py, dirdown/1.2)
+                S_fireburst(px, py, dirdown2/1.2)
 
-                -- S_fireburst(px, py, dir/1.4)
-                -- S_fireburst(px, py, dirup/1.4)
-                -- S_fireburst(px, py, dirup2/1.4)
-                -- S_fireburst(px, py, dirdown/1.4)
-                -- S_fireburst(px, py, dirdown2/1.4)
+                S_fireburst(px, py, dir/1.4)
+                S_fireburst(px, py, dirup/1.4)
+                S_fireburst(px, py, dirup2/1.4)
+                S_fireburst(px, py, dirdown/1.4)
+                S_fireburst(px, py, dirdown2/1.4)
                 -- local shots = {
                 --     -- Wave 1
                 --     { dir = dir,       speedMod = 1 },
@@ -248,7 +252,7 @@ local function c_Fireburst(world)
     end
 
     function FireBurst:draw()
-        local size = 4
+        local size = 5
         for _, a in ipairs(FireBurst) do
             a.animR:draw(
                 self.projectile,

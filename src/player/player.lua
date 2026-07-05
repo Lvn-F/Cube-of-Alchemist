@@ -171,6 +171,13 @@ local function c_Player(world)
                 self.dashTimer = 0.2
             end
         end
+
+        if player.state == 4 then
+            self.anim  = player.animate.down
+            self.anim:gotoFrame(1)
+
+            self.collider:setLinearVelocity(0, 0)
+        end
     end
 
     -- collision check
