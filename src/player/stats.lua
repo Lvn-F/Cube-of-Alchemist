@@ -46,6 +46,12 @@ local function stats()
         
         love.graphics.draw(self.leftBorder, 30 - self.leftBorder:getWidth(), 30)
         love.graphics.draw(self.rightBorder, 30 + (self.maxHealthContainer * width), 30)
+
+        love.graphics.setColor(0, 0, 0, 0.3)
+        love.graphics.circle("fill", 100, love.graphics.getHeight() - 100, 50)
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.print(math.floor(player.spellCooldown)+1, 85, love.graphics.getHeight()-130, nil, 4)
+        love.graphics.print("Basic Spell", 70, love.graphics.getHeight()-50)
     end
     return playerStat
 end

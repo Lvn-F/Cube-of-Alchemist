@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 20,
+  nextobjectid = 21,
   properties = {},
   tilesets = {
     {
@@ -416,12 +416,12 @@ return {
       properties = {},
       objects = {
         {
-          id = 1,
+          id = 20,
           name = "player",
           type = "",
           shape = "point",
-          x = 480.667,
-          y = 732,
+          x = 481.334,
+          y = 723.333,
           width = 0,
           height = 0,
           rotation = 0,

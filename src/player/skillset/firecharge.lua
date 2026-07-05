@@ -161,6 +161,7 @@ local function c_Firecharge(world)
                 player.chargingSpell = nil
                 player.state = 1
                 player.isCharging = false
+                player.spellCooldown = 1
             end
         end
     end

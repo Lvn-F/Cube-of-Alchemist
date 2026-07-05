@@ -74,11 +74,6 @@ function PlayState:draw()
         love.graphics.setColor(1, 1, 1, 1)
     end
 
-    love.graphics.setColor(1, 1, 1, 0.6)
-    love.graphics.setFont(love.graphics.newFont(11))
-    love.graphics.print("[Tab] Spells   [Q/E] Cycle Main   [F] Loot", 10, love.graphics.getHeight() - 22)
-    love.graphics.setColor(1, 1, 1, 1)
-
     ScreenWipe:draw()
 end
 

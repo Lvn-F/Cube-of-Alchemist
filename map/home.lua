@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 19,
-  nextobjectid = 255,
+  nextobjectid = 256,
   properties = {
     ["ySortOffset"] = -16
   },
@@ -2140,8 +2140,21 @@ return {
           name = "player",
           type = "",
           shape = "point",
-          x = 336.25,
-          y = 196.5,
+          x = 393.25,
+          y = 263.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 255,
+          name = "player",
+          type = "",
+          shape = "point",
+          x = 235.75,
+          y = 256,
           width = 0,
           height = 0,
           rotation = 0,

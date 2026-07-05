@@ -151,6 +151,7 @@ local function c_windcharge(world)
                 player.chargingSpell = nil
                 player.state = 1
                 player.isCharging = false
+                player.spellCooldown = 0.3
             end
         end
     end

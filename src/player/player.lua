@@ -6,6 +6,7 @@ local function c_Player(world)
         spell = 1,
         mainSpell   = 1,   -- default
         secondSpell = nil,
+        spellCooldown = -1.0,
 
         -- 1 = normal --
         -- 2 = charging --
@@ -202,11 +203,13 @@ local function c_Player(world)
     
     -- # Spell
     function player:startCharging()
-        Shadowballs:startCharge()
-        lightShards:startCharge()
-        WindCharges:startCharge()
-        Firecharges:startCharge()
-        FireBurst:startCharge()
+        if self.spellCooldown <= 0 then
+            Shadowballs:startCharge()
+            lightShards:startCharge()
+            WindCharges:startCharge()
+            Firecharges:startCharge()
+            FireBurst:startCharge()
+        end
     end
     function player:updateCharging(dt)
         Shadowballs:charge(dt)
@@ -231,6 +234,9 @@ local function c_Player(world)
         player:updateCharging(dt)
         player:collide(dt)
         self.anim:update(dt)
+        if self.spellCooldown > 0 then
+            self.spellCooldown = self.spellCooldown - dt
+        end
     end
 
     -- # Player:Draw

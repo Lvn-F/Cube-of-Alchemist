@@ -48,6 +48,9 @@ function PlayState:draw()
         love.graphics.pop()
 
         herbs:draw()
+        if LightningStrike.active then
+            LightningStrike:drawArea()
+        end
         -- dummy:draw()
         drawSort.draw(map, 3)
         LightningStrike:draw()
@@ -56,6 +59,7 @@ function PlayState:draw()
         Shadowballs:drawtest()
         slime:drawDebug()
         FireBurst:draw()
+        
 
         world:draw()
         love.graphics.push()
