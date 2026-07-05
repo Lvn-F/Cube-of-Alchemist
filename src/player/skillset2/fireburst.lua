@@ -248,12 +248,13 @@ local function c_Fireburst(world)
     end
 
     function FireBurst:draw()
+        local size = 4
         for _, a in ipairs(FireBurst) do
             a.animR:draw(
                 self.projectile,
                 a.pos.x, a.pos.y,
                 a.rotation,
-                2, 2,
+                size, size,
                 32,
                 32
             )
@@ -263,7 +264,7 @@ local function c_Fireburst(world)
                 self.projectile,
                 b.pos.x, b.pos.y,
                 b.rotation,
-                2, 2,
+                size, size,
                 32,
                 32
             )
@@ -273,7 +274,7 @@ local function c_Fireburst(world)
                 self.projectile,
                 c.pos.x, c.pos.y,
                 c.rotation,
-                2, 2,
+                size, size,
                 32,
                 32
             )

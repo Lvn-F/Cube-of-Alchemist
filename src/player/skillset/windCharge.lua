@@ -35,7 +35,7 @@ local function c_windcharge(world)
             speed = 700 + player.chargeTime * 500,
             anim = WindCharges.animate.release:clone()
         }
-        windcharge.collider = world:newBSGRectangleCollider(x - 64/2, y - 64/2, 32, 32, 16)
+        windcharge.collider = world:newBSGRectangleCollider(x - 32/2, y - 32/2, 32, 32, 16)
         windcharge.collider:setCollisionClass("Projectile")
         windcharge.collider:setLinearVelocity(dir.x * windcharge.speed, dir.y * windcharge.speed)
         

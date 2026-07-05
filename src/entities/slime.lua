@@ -244,6 +244,24 @@ local function c_Slime(world, map)
             love.graphics.setShader()
         end
     end
+    function slime:drawDebug()
+        love.graphics.setColor(1, 0, 0, 0.25)
+        for _, inst in ipairs(self.instances) do
+            love.graphics.circle('fill', inst.x, inst.y, detectRadius)
+        end
+
+        love.graphics.setColor(1, 0.5, 0, 0.25)
+        for _, inst in ipairs(self.instances) do
+            love.graphics.circle('fill', inst.x, inst.y, chaseRadius)
+        end
+
+        love.graphics.setColor(1, 1, 0, 0.35)
+        for _, inst in ipairs(self.instances) do
+            love.graphics.circle('fill', inst.x, inst.y, dashRadius)
+        end
+
+        love.graphics.setColor(1, 1, 1, 1)
+    end
 
     function slime:destroy()
         for _, inst in ipairs(self.instances) do

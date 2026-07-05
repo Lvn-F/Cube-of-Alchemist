@@ -3,8 +3,8 @@ local PlayState = {}
 inventory    = require 'src/invensystem/inventory'
 item         = require 'src/invensystem/item'
 inv          = inventory.new(6, 3)
-inventoryGui = require 'src.invensystem.-gui'
-inventoryGui:setInventory(inv, 50, 50)
+-- inventoryGui = require 'src.invensystem.-gui'
+-- inventoryGui:setInventory(inv, 50, 50)
 
 local function getCombinedSpell()
     if not player.mainSpell or not player.secondSpell then return nil end
@@ -53,6 +53,7 @@ function PlayState:draw()
         transitions:draw()
         player:drawSpell()
         Shadowballs:drawtest()
+        slime:drawDebug()
 
         world:draw()
         love.graphics.push()

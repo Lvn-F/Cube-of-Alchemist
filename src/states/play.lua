@@ -52,7 +52,6 @@ function PlayState:draw()
         drawSort.draw(map, 3)
         transitions:draw()
         player:drawSpell()
-        -- Shadowballs:drawtest()
         FireBurst:draw()
 
         love.graphics.push()

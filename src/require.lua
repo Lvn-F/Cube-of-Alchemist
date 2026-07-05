@@ -26,7 +26,7 @@ function getRequire()
     createCollisionClasses()
 
     require 'src/player/stats'
-    require 'src/gui/guiAssets'
+    require 'src/player/statsGUI'
     -- local Window = require 'src/gui/window'
     -- Window:load()
 
