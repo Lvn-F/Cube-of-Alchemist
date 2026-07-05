@@ -3,7 +3,8 @@ local function c_Slime(world, map)
         sprite = love.graphics.newImage('assets/sprite/entities/slime.png'),
         animSpeed = 0.4,
         idleSpeed = 0.2,
-        instances = {}
+        instances = {},
+        drops = {}
     }
     slime.grid = anim8.newGrid(32, 32, slime.sprite:getDimensions())
     slime.animate = {
@@ -31,6 +32,7 @@ local function c_Slime(world, map)
     local dashCooldown = 1.4
     local maxHP = 3
 
+    local mathUtil = require 'src/util/math'
     -- Spawn a single slime instance
     -- Used both for map-placed slimes and for boss-summoned slimes.
     function slime:spawnAt(x, y)
@@ -74,6 +76,7 @@ local function c_Slime(world, map)
             if self.hp <= 0 then
                 self.state = "dying"
                 self.anim = slime.animate.die:clone()
+                slime:spawnDrop(self.x, self.y)
                 self.anim.onLoop = function()
                     self.dead = true
                 end
@@ -82,6 +85,60 @@ local function c_Slime(world, map)
 
         table.insert(slime.instances, inst)
         return inst
+    end
+
+    -- loot
+    local slime_drop = {
+        name = "Slime Gel",
+        imgPath = pathImg.collectible .. "gel.png",
+        desc = "",
+    }
+    local dropSpriteCache = {}
+    local function getDropSprite(path)
+        if not dropSpriteCache[path] then
+            dropSpriteCache[path] = love.graphics.newImage(path)
+        end
+        return dropSpriteCache[path]
+    end
+
+    function slime:spawnDrop(x, y)
+        table.insert(self.drops, {
+            x = x,
+            y = y,
+            name = slime_drop.name,
+            imgPath = slime_drop.imgPath,
+            desc = slime_drop.desc,
+            looted = false,
+            sprite = getDropSprite(slime_drop.imgPath),
+        })
+    end
+    function slime:tryLoot(inventory)
+        for _, d in ipairs(self.drops) do
+            if not d.looted then
+                local dist = mathUtil.distanceBetween(player.x, player.y, d.x, d.y)
+                if dist < 80 then
+                    local itm = item.new(d.name, d.imgPath, d.desc)
+                    inventory:addItem(itm)
+                    d.looted = true
+                end
+            end
+        end
+    end
+
+    function slime:drawDrops()
+        for _, d in ipairs(self.drops) do
+            if not d.looted then
+                love.graphics.setColor(1, 1, 1, 1)
+                love.graphics.draw(d.sprite, d.x, d.y, nil, 2, 2, 16, 16)
+
+                local dist = mathUtil.distanceBetween(player.x, player.y, d.x, d.y)
+                if dist < 80 then
+                    love.graphics.setColor(1, 1, 1, 1)
+                    love.graphics.print("[F]", d.x - 10, d.y - 20, nil, 1.5)
+                end
+            end
+        end
+        love.graphics.setColor(1, 1, 1, 1)
     end
 
     -- Boss-facing API: summon a slime with the spawn animation playing.
@@ -107,7 +164,7 @@ local function c_Slime(world, map)
             inst.scaleX = dx > 0 and 1 or -1
         end
     end
-    local mathUtil = require 'src/util/math'
+    
     local function wander(inst, dt)
         inst.wanderTimer = inst.wanderTimer - dt
         if inst.wanderTimer <= 0 then
@@ -268,6 +325,7 @@ local function c_Slime(world, map)
             if inst.collider then inst.collider:destroy() end
         end
         self.instances = {}
+        self.drops = {}
     end
 
     return slime

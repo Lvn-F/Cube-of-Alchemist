@@ -48,6 +48,7 @@ function PlayState:draw()
         love.graphics.pop()
 
         herbs:draw()
+        slime:drawDrops()
         -- dummy:draw()
         drawSort.draw(map, 3)
         transitions:draw()
@@ -104,6 +105,7 @@ function PlayState:keypressed(key)
 
     if key == 'f' then
         herbs:tryLoot(inv)
+        slime:tryLoot(inv)
         if transitions.canUse then
             loadMap(transitions.canUse.destMap)
         end

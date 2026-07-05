@@ -9,7 +9,7 @@ local Recipes = {
         },
     },
     {
-        inputs = { { name = "Fire Herb", count = 1} },
+        inputs = { { name = "Fire Herb", count = 1}, { name = "Slime Gel", count =1 } },
         result = {
             name = "Fire Essence",
             imgPath = pathImg.consumable .. "shardfire.png",
