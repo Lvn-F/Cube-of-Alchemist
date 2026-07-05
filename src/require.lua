@@ -25,10 +25,10 @@ function getRequire()
     require 'src/collisionClasses'
     createCollisionClasses()
 
-    require 'src/gui/stat'
+    require 'src/player/stats'
     require 'src/gui/guiAssets'
-    local Window = require 'src/gui/window'
-    Window:load()
+    -- local Window = require 'src/gui/window'
+    -- Window:load()
 
     -- Spell
     c_Shadowball = require 'src/player/skillset/shadowball'

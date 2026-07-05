@@ -1,5 +1,5 @@
-local function stats(player)
-    require 'src/gui/guiAssets'
+local function stats()
+    require 'src/player/statsGUI'
     playerStat = {
         maxHealthContainer = 4,
         -- healthContainer = maxHealthContainer,

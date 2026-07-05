@@ -3,7 +3,7 @@ local PlayState = {}
 inventory    = require 'src/invensystem/inventory'
 item         = require 'src/invensystem/item'
 inv          = inventory.new(6, 3)
-inventoryGui = require 'src/invensystem/gui'
+inventoryGui = require 'src.invensystem.-gui'
 inventoryGui:setInventory(inv, 50, 50)
 
 local function getCombinedSpell()
