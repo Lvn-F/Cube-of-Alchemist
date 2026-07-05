@@ -9,6 +9,7 @@ function getRequire()
     fog:load()
     require 'src/util/math'
     damageMod = require 'src/player/damageMod'
+    ScreenWipe = require 'src/levels/screenWipe'
 
     --
     pathImg = {

@@ -1,6 +1,7 @@
 function updateGame(dt)
     map:update(dt)
     transitions:update(dt)
+    ScreenWipe:update(dt)
     -- player
     player:update(dt)
 
