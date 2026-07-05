@@ -21,7 +21,7 @@ local function c_LightningStrike(world)
         -- actually lands / collider spawns, simulating impact timing
         strikeImpactFrame = 5,
         strikeRadius      = 22,
-        dropHeight        = 64, -- how far above the target the bolt is drawn from
+        dropHeight        = 48, -- how far above the target the bolt is drawn from
     }
 
     LightningStrike.markGrid   = anim8.newGrid(32, 32, LightningStrike.markSprite:getDimensions())
@@ -29,7 +29,7 @@ local function c_LightningStrike(world)
 
     LightningStrike.animate = {
         mark   = anim8.newAnimation(LightningStrike.markGrid('1-4', 1), LightningStrike.animSpeed),
-        strike = anim8.newAnimation(LightningStrike.strikeGrid('1-6', 1), 0.02),
+        strike = anim8.newAnimation(LightningStrike.strikeGrid('1-6', 1), 0.05),
     }
 
 
