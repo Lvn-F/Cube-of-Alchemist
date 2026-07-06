@@ -48,7 +48,8 @@ local function c_Player(world)
         shadow = anim8.newAnimation(player.grid('3-3', 5), player.animSpeed),
         chargeL = anim8.newAnimation(player.grid('1-4',7), player.animSpeed),
         chargeR = anim8.newAnimation(player.grid('1-4',8), player.animSpeed),
-        focus = anim8.newAnimation(player.grid('4-4', 5), 1)
+        focus = anim8.newAnimation(player.grid('4-4', 5), 1),
+        die = anim8.newAnimation(player.grid('3-3',6), 1)
     }
     player.anim = player.animate.down
     player.facing = "down"
