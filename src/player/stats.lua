@@ -17,6 +17,9 @@ local function stats()
         if playerStat.health > playerStat.maxHealthContainer then
             playerStat.health = playerStat.maxHealthContainer
         end
+        if playerStat.health <= 0 and player and player.state ~= 0 then
+            player:die()
+        end
     end
 
     function playerStat:draw()

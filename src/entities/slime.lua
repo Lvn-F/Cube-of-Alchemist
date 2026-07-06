@@ -25,7 +25,7 @@ local function c_Slime(world, map)
     local loseRadius = 3000 -- beyond this while alert, go back to idle
     local wanderRadius = 60
     local wanderSpeed = 90
-    local chaseSpeed = 120
+    local chaseSpeed = 140
     local dashSpeed = 550
     local dashWindup = 0.45  -- pause before dashing
     local dashDuration = 0.4

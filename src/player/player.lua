@@ -19,6 +19,8 @@ local function c_Player(world)
         iframe = false,
         hitTake = false,
         hitTakeCd = 0,
+        deathTimer = 0,
+        respawning = false,
 
         x = 875,
         y =530,
@@ -228,8 +230,50 @@ local function c_Player(world)
         FireBurst:endCharge()
     end
 
+    function player:die()
+        if self.state == 0 then return end
+        self.state = 0
+        self.isCharging = false
+        self.chargingSpell = nil
+        self.anim = self.animate.die
+        self.anim:gotoFrame(1)
+        self.collider:setLinearVelocity(0, 0)
+        self.deathTimer = 1.0 -- how long to hold the die frame before wiping
+        self.respawning = false
+    end
+    function player:respawn()
+        ScreenWipe:start(function()
+            playerStat.health = playerStat.maxHealthContainer
+
+            local sx, sy = findSpawn(map)
+            if sx then
+                self.collider:setX(sx)
+                self.collider:setY(sy)
+                self.x, self.y = sx, sy
+            end
+
+            self.iframe = false
+            self.hitTakeCd = 0
+            self.facing = "down"
+            self.anim = self.animate.down
+            self.anim:gotoFrame(1)
+            self.state = 1
+        end)
+    end
+
     -- # Player:Update
     function player:update(dt)
+        if self.state == 0 then
+            self.anim:update(dt)
+            if self.deathTimer > 0 then
+                self.deathTimer = self.deathTimer - dt
+                if self.deathTimer <= 0 and not self.respawning then
+                    self.respawning = true
+                    self:respawn()
+                end
+            end
+            return -- skip movement/charging/collision while dead
+        end
         player:control(dt)
         -- player:spellSelect()
         player:handleState(dt)

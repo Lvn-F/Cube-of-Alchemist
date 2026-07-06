@@ -48,6 +48,7 @@ function PlayState:draw()
         love.graphics.pop()
 
         herbs:draw()
+        giantSlime:draw()
         if LightningStrike.active then
             LightningStrike:drawAreaDebug()
         end

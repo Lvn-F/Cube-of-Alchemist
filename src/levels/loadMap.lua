@@ -1,4 +1,4 @@
-local function findSpawn(targetMap)
+function findSpawn(targetMap)
     for _, layer in ipairs(targetMap.layers) do
         if layer.type == "objectgroup" then
             for _, obj in ipairs(layer.objects) do
