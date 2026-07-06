@@ -5,9 +5,6 @@ local RECIPES = {
     { a = 2, b = 2, result = 1 },   -- LightShard + LightShard  -> ???
     { a = 1, b = 1, result = 1 },   -- Shadowballs + Shadowball ->   
     { a = 1, b = 2, result = 12 },  -- Firecharge + LightShard -> Lightning Strike
-    { a = 4, b = 2, result = 1 },
-    { a = 2, b = 2, result = 1 },
-    { a = 2, b = 2, result = 1 },
 }
 
 function SpellCombine.getResult(spellA, spellB)
