@@ -63,7 +63,7 @@ local function c_LightningStrike(world)
 
         -- keep player locked in place / animation locked while focusing
         player.state = 4
-        player.anim  = player.animate.down
+        player.anim  = player.animate.focus
         player.collider:setLinearVelocity(0, 0)
 
         self.timer = self.timer - dt
@@ -125,22 +125,29 @@ local function c_LightningStrike(world)
         self.cooldownTimer = self.cooldownDuration
 
         player.state = 1
-        -- restore idle-facing animation; adjust if you track player.facing
-        if player.facing == "right" then
-            player.anim = player.animate.right
-        elseif player.facing == "left" then
-            player.anim = player.animate.left
-        elseif player.facing == "up" then
-            player.anim = player.animate.up
-        else
-            player.anim = player.animate.down
-        end
+        -- if player.facing == "right" then
+        --     player.anim = player.animate.right
+        -- elseif player.facing == "left" then
+        --     player.anim = player.animate.left
+        -- elseif player.facing == "up" then
+        --     player.anim = player.animate.up
+        -- else
+        --     player.anim = player.animate.down
+        -- end
+        player.anim = player.animate.down
         player.anim:gotoFrame(1)
     end
 
     function LightningStrike:drawArea()
         love.graphics.setColor(1, 1, 0, 0.35)
+        -- love.graphics.circle('fill', player.x, player.y, lightningStrike.markRadius)
+        love.graphics.circle('fill', player.x, player.y, 50)
+        love.graphics.setColor(1, 1, 1, 1)
+    end
+    function LightningStrike:drawAreaDebug()
+        love.graphics.setColor(1, 1, 0, 0.35)
         love.graphics.circle('fill', player.x, player.y, lightningStrike.markRadius)
+        -- love.graphics.circle('fill', player.x, player.y, 50)
         love.graphics.setColor(1, 1, 1, 1)
     end
     function LightningStrike:update(dt)

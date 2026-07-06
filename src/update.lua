@@ -22,6 +22,7 @@ function updateGame(dt)
     wolf:update(dt)
     dummy:update(dt)
     slime:update(dt)
+    giantSlime:update(dt)
     --
 
     --

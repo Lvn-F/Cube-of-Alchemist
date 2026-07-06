@@ -21,7 +21,7 @@ function getRequire()
         gui = "assets/sprite/gui/"
     }
     --
-    
+
     shaders = require 'src/shaders'
     require 'src/update'
     require 'src/collisionClasses'
@@ -45,13 +45,14 @@ function getRequire()
     windCharges = c_WindCharge(world)
     firecharges = c_Firecharge(world)
 
+
     -- Spell (Combined)
     fireburst = c_Fireburst(world)
     lightningStrike = c_LightningStrike(world)
-    
+
     c_Player = require 'src/player/player'
     player = c_Player(world)
-    
+
     -- Object
     c_Herb = require 'src/object/plant/herb'
     c_Fire = require 'src/object/fire'
@@ -65,9 +66,12 @@ function getRequire()
     c_Dummy = require 'src/entities/dummy'
     c_wolf = require 'src/entities/wolf'
     c_Slime = require 'src/entities/slime'
+    c_GiantSlime = require 'src/entities/boss/giantSlime'
     -- Entities Call
     dummy = c_Dummy(world)
     wolf = c_wolf(world)
     slime = c_Slime(world)
+    giantSlime = c_GiantSlime(world, map)
 end
+
 return require

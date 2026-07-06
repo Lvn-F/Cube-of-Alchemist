@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="255">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="256">
  <editorsettings>
-  <export format="lua"/>
+  <export target="home.lua" format="lua"/>
  </editorsettings>
  <properties>
   <property name="ySortOffset" type="int" value="-16"/>
@@ -530,7 +530,10 @@
   </object>
   <object id="247" name="toBossRoom" x="718.667" y="226" width="31.3333" height="51.3333"/>
   <object id="254" name="toBossRoom" x="210.667" y="103" width="31.3333" height="28.3333"/>
-  <object id="248" name="player" x="336.25" y="196.5">
+  <object id="248" name="player" x="393.25" y="263.5">
+   <point/>
+  </object>
+  <object id="255" name="player" x="235.75" y="256">
    <point/>
   </object>
   <object id="252" x="185.75" y="242.25">

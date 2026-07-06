@@ -22,7 +22,7 @@ local function c_Slime(world, map)
     local detectRadius = 300 -- idle -> alert
     local chaseRadius = 300 -- above this (but within detect), chase
     local dashRadius = 150 -- below this, dash instead of chase
-    local loseRadius = 300 -- beyond this while alert, go back to idle
+    local loseRadius = 3000 -- beyond this while alert, go back to idle
     local wanderRadius = 60
     local wanderSpeed = 90
     local chaseSpeed = 120

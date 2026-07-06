@@ -49,12 +49,16 @@ function PlayState:draw()
 
         herbs:draw()
         slime:drawDrops()
+        -- if giantSlime.hp >= 0 then
+            giantSlime:draw()
+        -- end
         -- dummy:draw()
+        if LightningStrike.active then
+            LightningStrike:drawArea()
+        end
         drawSort.draw(map, 3)
         LightningStrike:draw()
-        -- if LightningStrike.active then
-        --     LightningStrike:drawArea()
-        -- end
+        
         transitions:draw()
         player:drawSpell()
         FireBurst:draw()
@@ -107,6 +111,7 @@ function PlayState:keypressed(key)
     if key == 'f' then
         herbs:tryLoot(inv)
         slime:tryLoot(inv)
+        giantSlime:tryLoot(inv)
         if transitions.canUse then
             loadMap(transitions.canUse.destMap)
         end

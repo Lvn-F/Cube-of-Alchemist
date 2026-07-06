@@ -89,6 +89,14 @@ function drawSort.draw(map, scale)
         })
     end
 
+    -- table.insert(drawables, {
+    --     y = inst.y,
+    --     isScaled = false,
+    --     draw = function()
+    --         giantSlime:draw()
+    --     end
+    -- })
+
     table.insert(drawables, {
         y = dummy.y + 72,
         isScaled = false,

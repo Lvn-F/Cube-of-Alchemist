@@ -17,6 +17,7 @@ function loadMap(mapPath)
         if grass and grass.destroy then grass:destroy() end
         if wolf and wolf.destroy then wolf:destroy() end
         if slime and slime.destroy then slime:destroy() end
+        if giantSlime and giantSlime.destroy then giantSlime:destroy() end
 
         map = sti(mapPath .. '.lua')
         mapCollider()
@@ -26,6 +27,7 @@ function loadMap(mapPath)
         grass = c_Grass(world, map)
         wolf = c_wolf(world, map)
         slime = c_Slime(world, map)
+        giantSlime = c_GiantSlime(world, map)
 
         local sx, sy = findSpawn(map)
         if sx then

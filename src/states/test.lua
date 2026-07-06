@@ -49,7 +49,7 @@ function PlayState:draw()
 
         herbs:draw()
         if LightningStrike.active then
-            LightningStrike:drawArea()
+            LightningStrike:drawAreaDebug()
         end
         -- dummy:draw()
         drawSort.draw(map, 3)

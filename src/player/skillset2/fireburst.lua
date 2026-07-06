@@ -46,7 +46,7 @@ local function c_Fireburst(world)
             animR = FireBurst.animate.releaseR:clone(),
         }
         fireburst.collider = world:newBSGRectangleCollider(x - 32, y - 32, 64, 64, 16)
-        fireburst.collider:setCollisionClass("Projectile")
+        fireburst.collider:setCollisionClass("ProjectilePass")
         fireburst.collider:setLinearVelocity(dir.x * fireburst.speed, dir.y * fireburst.speed)
 
         function fireburst:playBurst()
@@ -103,9 +103,9 @@ local function c_Fireburst(world)
                 local obj = h:getObject()
                 if obj and obj.hit then obj:hit(damageMod[1]) end
             end
-            if #hits > 0 then
-                self:playBurst()
-            end
+            -- if #hits > 0 then
+            --     self:playBurst()
+            -- end
         end
 
         table.insert(FireBurst, fireburst)
@@ -180,21 +180,21 @@ local function c_Fireburst(world)
 
                 S_fireburst(px, py, dir)
                 S_fireburst(px, py, dirup)
-                S_fireburst(px, py, dirup2)
+                -- S_fireburst(px, py, dirup2)
                 S_fireburst(px, py, dirdown)
-                S_fireburst(px, py, dirdown2)
+                -- S_fireburst(px, py, dirdown2)
 
-                S_fireburst(px, py, dir/1.2)
-                S_fireburst(px, py, dirup/1.2)
-                S_fireburst(px, py, dirup2/1.2)
-                S_fireburst(px, py, dirdown/1.2)
-                S_fireburst(px, py, dirdown2/1.2)
+                -- S_fireburst(px, py, dir/1.2)
+                -- S_fireburst(px, py, dirup/1.2)
+                -- S_fireburst(px, py, dirup2/1.2)
+                -- S_fireburst(px, py, dirdown/1.2)
+                -- S_fireburst(px, py, dirdown2/1.2)
 
-                S_fireburst(px, py, dir/1.4)
-                S_fireburst(px, py, dirup/1.4)
-                S_fireburst(px, py, dirup2/1.4)
-                S_fireburst(px, py, dirdown/1.4)
-                S_fireburst(px, py, dirdown2/1.4)
+                -- S_fireburst(px, py, dir/1.4)
+                -- S_fireburst(px, py, dirup/1.4)
+                -- S_fireburst(px, py, dirup2/1.4)
+                -- S_fireburst(px, py, dirdown/1.4)
+                -- S_fireburst(px, py, dirdown2/1.4)
                 -- local shots = {
                 --     -- Wave 1
                 --     { dir = dir,       speedMod = 1 },
