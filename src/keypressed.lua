@@ -34,7 +34,7 @@ function love.keypressed(key)
 end
 
 function love.mousepressed(x, y, button)
-    if button == 1 and player.state == 1 and player.spell then
+    if button == 1  and player.spell then
         -- player.state = 2
         player:startCharging()
     end

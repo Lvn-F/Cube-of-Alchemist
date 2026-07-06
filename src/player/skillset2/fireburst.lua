@@ -130,7 +130,7 @@ local function c_Fireburst(world)
     function FireBurst:charge(dt)
         if player.spell == 11 then
             if player.state == 2 and player.chargingSpell then
-                player.speed = 250
+                player.speed = 200
                 player.chargeTime = math.min(player.chargeTime + dt, 1)
                 player.chargingSpell.pos = Vector(player.x, player.y)
                 player.chargingSpell.scale = 2 + player.chargeTime * 0.3

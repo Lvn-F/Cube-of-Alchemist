@@ -2,9 +2,9 @@
 
 local Crafting = {}
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- LAYOUT CONSTANTS
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 local SLOT_SIZE      = 50
 local SLOT_GAP       = 6
 local WINDOW_PAD     = 20
@@ -18,9 +18,9 @@ local CRAFT_ROWS     = 2
 local CRAFT_BTN_W    = 140
 local CRAFT_BTN_H    = 36
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- COLOUR PALETTE
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 local COL = {
     bgDim         = {0, 0, 0, 0.6},
 
@@ -62,22 +62,17 @@ local COL = {
     badgeFg       = {1, 1, 0.3, 1},
 }
 
--- ─────────────────────────────────────────────────────────────────────────────
--- RECIPES
--- Each recipe lists required ingredients (by item name) and their counts,
--- plus the resulting item. Order of ingredients in the grid doesn't matter.
--- Set result.imgPath to a sprite path; it's loaded into result.imgObj lazily.
--- ─────────────────────────────────────────────────────────────────────────────
+
 local RECIPES = require 'src/util/recipes'
 local item    = require 'src/invensystem/item'
+local ItemEffects = require 'src/util/itemEffects'
 
--- ─────────────────────────────────────────────────────────────────────────────
 -- MODULE STATE
--- ─────────────────────────────────────────────────────────────────────────────
 local layout        = {}    -- computed every resize/enter
 local hoverSlot      = nil  -- { kind = "inv"/"craft", x, y }
 local selectedSlot   = nil  -- the slot currently "picked up"
 local hoverCraftBtn  = false
+local useMenu        = nil  -- { x, y, w, h, slot = {kind="inv", x=, y=} }
 local font           = nil
 local smallFont      = nil
 
@@ -98,9 +93,9 @@ local function resetCraftGrid()
     end
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- HELPERS
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 local function setColor(col, a)
     love.graphics.setColor(col[1], col[2], col[3], (a or 1) * col[4])
@@ -132,7 +127,6 @@ local function tallyCraftGrid()
     return tally
 end
 
--- Lazily loads the result image for a recipe (once per recipe).
 local function ensureResultImage(recipe)
     local result = recipe.result
     if result.imgObj or not result.imgPath then return end
@@ -181,9 +175,9 @@ local function refreshRecipeMatch()
     matchedRecipe = findMatchingRecipe()
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- LAYOUT BUILDER
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 local function buildLayout()
     local sw, sh = love.graphics.getDimensions()
@@ -256,9 +250,9 @@ local function craftSlotRect(x, y)
            SLOT_SIZE, SLOT_SIZE
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- DRAW HELPERS
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 local function drawWindowChrome(win, title)
     setColor(COL.windowBg)
@@ -341,9 +335,9 @@ local function drawDescriptionBox()
     end
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- DRAW SECTIONS
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 local function drawInventoryWindow()
     drawWindowChrome(layout.inv, "Inventory")
@@ -436,9 +430,9 @@ local function drawCraftingWindow()
     drawCraftButton()
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- CRAFTING ACTION
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 -- Consumes exactly the amounts required by the recipe from the craft grid,
 -- leaving any surplus behind in place (rather than wiping whole stacks).
@@ -465,6 +459,34 @@ local function consumeRecipeIngredients(recipe)
     end
 end
 
+local function tryUseItem(slotKind, slotX, slotY)
+    local data = slotKind == "inv" and getInvSlot(slotX, slotY) or getCraftSlot(slotX, slotY)
+    if data == 0 or data == nil then return end
+
+    local effect = ItemEffects[data.item.name]
+    if not effect then return end -- item isn't usable, no-op
+
+    local consumed = effect()
+    if consumed then
+        data.count = data.count - 1
+        if data.count <= 0 then
+            if slotKind == "inv" then
+                inv.arr[slotY][slotX] = 0
+            else
+                craftGrid[slotY][slotX] = 0
+            end
+        end
+    end
+end
+
+local function closeUseMenu()
+    useMenu = nil
+end
+
+local function pointInUseMenu(px, py)
+    if not useMenu then return false end
+    return pointInRect(px, py, useMenu.x, useMenu.y, useMenu.w, useMenu.h)
+end
 local function tryCraft()
     if not matchedRecipe then return end
 
@@ -480,9 +502,9 @@ local function tryCraft()
     refreshRecipeMatch()
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- GAMESTATE LIFECYCLE
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 function Crafting:enter()
     resetCraftGrid()
@@ -533,6 +555,17 @@ function Crafting:update(dt)
     end
 end
 
+local function drawUseMenu()
+    if not useMenu then return end
+    setColor(COL.windowBg)
+    love.graphics.rectangle("fill", useMenu.x, useMenu.y, useMenu.w, useMenu.h, 6, 6)
+    setColor(COL.windowBorder)
+    love.graphics.rectangle("line", useMenu.x, useMenu.y, useMenu.w, useMenu.h, 6, 6)
+
+    love.graphics.setFont(font)
+    setColor(COL.text)
+    love.graphics.printf("Use", useMenu.x, useMenu.y + (useMenu.h - font:getHeight()) / 2, useMenu.w, "center")
+end
 function Crafting:draw()
     local sw, sh = love.graphics.getDimensions()
     cam:attach()
@@ -555,13 +588,14 @@ function Crafting:draw()
 
     drawInventoryWindow()
     drawCraftingWindow()
+    drawUseMenu()
 
     love.graphics.setColor(1, 1, 1, 1)
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 -- INPUT
--- ─────────────────────────────────────────────────────────────────────────────
+-- 
 
 -- Moves every item currently sitting in the craft grid back into the first
 -- available inventory slot, then clears the craft grid.
@@ -586,7 +620,31 @@ function Crafting:keypressed(key)
 end
 
 function Crafting:mousepressed(x, y, button)
+    if button == 2 then
+        if useMenu then closeUseMenu(); return end
+
+        if hoverSlot then
+            local data = hoverSlot.kind == "inv"
+                and getInvSlot(hoverSlot.x, hoverSlot.y)
+                or  getCraftSlot(hoverSlot.x, hoverSlot.y)
+
+            if data ~= 0 and ItemEffects[data.item.name] then
+                useMenu = {
+                    x = x, y = y, w = 70, h = 26,
+                    slot = { kind = hoverSlot.kind, x = hoverSlot.x, y = hoverSlot.y }
+                }
+            end
+        end
+        return
+    end
     if button ~= 1 then return end
+    if useMenu then
+        if pointInUseMenu(x, y) then
+            tryUseItem(useMenu.slot.kind, useMenu.slot.x, useMenu.slot.y)
+        end
+        closeUseMenu()
+        return
+    end
 
     -- Craft button takes priority over slot interaction
     local c = layout.craft

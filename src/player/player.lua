@@ -15,7 +15,7 @@ local function c_Player(world)
         isCharging = false,
         chargeTime = 0,
         isDash = false,
-        dashTimer = 0.3,
+        dashTimer = 0.4,
         iframe = false,
         hitTake = false,
         hitTakeCd = 0,
@@ -173,7 +173,7 @@ local function c_Player(world)
                     
                 end
                 self.state = 1
-                self.dashTimer = 0.2
+                self.dashTimer = 0.4
             end
         end
 
