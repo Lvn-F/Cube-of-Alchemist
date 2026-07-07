@@ -15,7 +15,7 @@ local function c_Player(world)
         isCharging = false,
         chargeTime = 0,
         isDash = false,
-        dashTimer = 0.4,
+        dashTimer = 0.3,
         iframe = false,
         hitTake = false,
         hitTakeCd = 0,
@@ -173,7 +173,7 @@ local function c_Player(world)
                     
                 end
                 self.state = 1
-                self.dashTimer = 0.4
+                self.dashTimer = 0.3
             end
         end
 
@@ -238,27 +238,28 @@ local function c_Player(world)
         self.anim = self.animate.die
         self.anim:gotoFrame(1)
         self.collider:setLinearVelocity(0, 0)
-        self.deathTimer = 1.0 -- how long to hold the die frame before wiping
+        self.deathTimer = 1.0
         self.respawning = false
     end
     function player:respawn()
-        ScreenWipe:start(function()
-            playerStat.health = playerStat.maxHealthContainer
+        playerStat.health = playerStat.maxHealthContainer
 
-            local sx, sy = findSpawn(map)
-            if sx then
-                self.collider:setX(sx)
-                self.collider:setY(sy)
-                self.x, self.y = sx, sy
-            end
+            -- local sx, sy = findRespawn(map)
+            -- if sx then
+            --     self.collider:setX(sx)
+            --     self.collider:setY(sy)
+            --     self.x, self.y = sx, sy
+            -- end
 
-            self.iframe = false
-            self.hitTakeCd = 0
-            self.facing = "down"
-            self.anim = self.animate.down
-            self.anim:gotoFrame(1)
-            self.state = 1
-        end)
+        self.iframe = false
+        self.hitTakeCd = 0
+        self.facing = "down"
+        self.anim = self.animate.down
+        self.anim:gotoFrame(1)
+        self.state = 1
+
+        -- loadMap("map/home")
+        respawn("map/home")
     end
 
     -- # Player:Update
@@ -272,7 +273,7 @@ local function c_Player(world)
                     self:respawn()
                 end
             end
-            return -- skip movement/charging/collision while dead
+            return
         end
         player:control(dt)
         -- player:spellSelect()

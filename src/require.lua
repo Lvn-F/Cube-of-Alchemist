@@ -3,6 +3,7 @@ function getRequire()
     require 'src/levels/transition'
     require 'src/levels/loadMap'
     require 'map/drawMap'
+    require 'src/sound'
     SpellCombine = require 'src/util/spellCombine'
     Fog = require("hadeh/fog")
     fog = Fog
@@ -54,11 +55,11 @@ function getRequire()
     player = c_Player(world)
 
     -- Object
-    c_Herb = require 'src/object/plant/herb'
+    c_Collect= require 'src/object/collect'
     c_Fire = require 'src/object/fire'
     c_Grass = require 'src/object/grass'
     -- Object Call
-    herbs = c_Herb(world, map)
+    collect = c_Collect(world, map)
     fire = c_Fire(world)
     grass = c_Grass(world, map)
 

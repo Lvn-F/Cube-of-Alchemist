@@ -1,8 +1,8 @@
-local collectible = {}
-collectible.__index = collectible
-function collectible.new(img)
-    local self = metatable({
-        img = love.graphics.newImg(img)
-    }, collectible)
-    return self
-end
+-- local collectible = {}
+-- collectible.__index = collectible
+-- function collectible.new(img)
+--     local self = metatable({
+--         img = love.graphics.newImg(img)
+--     }, collectible)
+--     return self
+-- end

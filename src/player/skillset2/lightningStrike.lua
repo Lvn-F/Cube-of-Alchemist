@@ -6,22 +6,20 @@ local function c_LightningStrike(world)
         strikeSprite = love.graphics.newImage(pathImg.skill .. 'lightningStrike.png'),
         animSpeed    = 0.08,
 
-        active       = false,   -- true while focusing (player.state == 4)
+        active       = false,   
         timer        = 0,
-        focusDuration = 0.5,    -- how long the focus window lasts
+        focusDuration = 0.5,    
         markRadius   = 250,     -- detection radius around the player
 
         cooldownDuration = 0.8, -- seconds you must wait after a strike ends
         cooldownTimer    = 0,   -- counts down to 0; spell usable when <= 0
 
         marked       = {},      -- { {obj=enemyObj, markAnim=anim8instance}, ... }
-        strikes      = {},      -- active falling-strike visuals/hitboxes
+        strikes      = {},      
 
-        -- frame (1-indexed) within the strike animation at which the hit
-        -- actually lands / collider spawns, simulating impact timing
         strikeImpactFrame = 5,
         strikeRadius      = 22,
-        dropHeight        = 48, -- how far above the target the bolt is drawn from
+        dropHeight        = 48,
     }
 
     LightningStrike.markGrid   = anim8.newGrid(32, 32, LightningStrike.markSprite:getDimensions())
@@ -111,19 +109,18 @@ local function c_LightningStrike(world)
         strike.anim.onLoop = function()
             strike.dead = true
         end
-
+        dj.play(sound.struct, "stream")
         table.insert(self.strikes, strike)
     end
 
-    -- Fires once the focus timer expires: strikes every marked enemy.
     function LightningStrike:focusRelease()
         for _, m in ipairs(self.marked) do
             self:spawnStrikeFor(m.obj)
+            
         end
         self.marked = {}
 
         self.cooldownTimer = self.cooldownDuration
-
         player.state = 1
         -- if player.facing == "right" then
         --     player.anim = player.animate.right
@@ -164,12 +161,9 @@ local function c_LightningStrike(world)
             local s = self.strikes[i]
             s.anim:update(dt)
 
-            -- Trigger the "impact" once the animation reaches the impact
-            -- frame -- this is what gives the illusion of the bolt
-            -- landing on the enemy from above.
             if not s.spawned and s.anim.position >= self.strikeImpactFrame then
                 s.spawned = true
-
+                
                 local hits = world:queryCircleArea(s.targetX, s.targetY, self.strikeRadius, {'Enemy'})
                 for _, h in ipairs(hits) do
                     local o = h:getObject()

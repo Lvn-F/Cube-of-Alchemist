@@ -417,11 +417,11 @@ return {
       objects = {
         {
           id = 20,
-          name = "player",
+          name = "move",
           type = "",
           shape = "point",
-          x = 481.334,
-          y = 723.333,
+          x = 479.001,
+          y = 727.333,
           width = 0,
           height = 0,
           rotation = 0,

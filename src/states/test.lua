@@ -47,7 +47,7 @@ function PlayState:draw()
             drawBefore()
         love.graphics.pop()
 
-        herbs:draw()
+        collect:draw()
         giantSlime:draw()
         if LightningStrike.active then
             LightningStrike:drawAreaDebug()
@@ -115,7 +115,7 @@ function PlayState:keypressed(key)
     end
 
     if key == 'f' then
-        herbs:tryLoot(inv)
+        collect:tryLoot(inv)
         if transitions.canUse then
             loadMap(transitions.canUse.destMap)
         end

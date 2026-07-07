@@ -574,7 +574,7 @@ function Crafting:draw()
             drawBefore()
         love.graphics.pop()
 
-        herbs:draw()
+        collect:draw()
         drawSort.draw(map, 3)
         player:drawSpell()
 

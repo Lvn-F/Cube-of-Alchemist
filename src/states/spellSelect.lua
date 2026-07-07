@@ -359,7 +359,7 @@ function SpellSelect:draw()
             drawBefore()
         love.graphics.pop()
 
-        herbs:draw()
+        collect:draw()
         drawSort.draw(map, 3)
         player:drawSpell()
 
@@ -427,10 +427,12 @@ function SpellSelect:mousepressed(x, y, button)
                 -- Left-click → assign as main spell
                 mainKey           = key
                 player.mainSpell  = key
+                dj.play(sound.select, "static")
             else
                 -- Right-click → assign as second spell (for combining)
                 secondKey          = key
                 player.secondSpell = key
+                dj.play(sound.select, "static")
             end
             return
         end

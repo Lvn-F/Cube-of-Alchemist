@@ -56,6 +56,7 @@ local function c_Fireburst(world)
             self.collider:setLinearVelocity(0, 0)
             self.collider:destroy()
             self.collider = nil
+            dj.play(sound.fire, "stream")
 
             self.animY = FireBurst.animate.burst:clone()
             self.animO = FireBurst.animate.burst:clone()
@@ -102,6 +103,7 @@ local function c_Fireburst(world)
             for _, h in ipairs(hits) do
                 local obj = h:getObject()
                 if obj and obj.hit then obj:hit(damageMod[1]) end
+                
             end
             -- if #hits > 0 then
             --     self:playBurst()
@@ -177,7 +179,9 @@ local function c_Fireburst(world)
                 local dirup2 = toMouseVector(px-32, py-32)
                 local dirdown = toMouseVector(px+24, py+24)
                 local dirdown2 = toMouseVector(px+32, py+32)
-
+                
+                dj.play(sound.fire, "static")
+                
                 S_fireburst(px, py, dir)
                 S_fireburst(px, py, dirup)
                 -- S_fireburst(px, py, dirup2)

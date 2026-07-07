@@ -24,7 +24,7 @@ local function c_GiantSlime(world, map)
         shot   = anim8.newAnimation(giantSlime.bulletGrid('8-8', 1), giantSlime.animSpeed),
     }
 
-    -- ── Tunables ─────────────────────────────────────────────────────────
+    --  Tunables 
     local detectRadius     = 260
     local maxHP            = 60
     local enrageThreshold   = 0.25
@@ -33,7 +33,7 @@ local function c_GiantSlime(world, map)
     local shootCooldownBase  = 3
     local restDuration        = 2
 
-    local summonCount    = 10
+    local summonCount    = 5
     local summonRadius   = 840
 
     local bulletCount    = 5
@@ -132,7 +132,7 @@ local function c_GiantSlime(world, map)
         end
     end
 
-    -- ── Actions ──────────────────────────────────────────────────────────
+    --  Actions 
     local function cooldownScale(inst)
         return inst.enraged and 0.5 or 1
     end
@@ -175,7 +175,7 @@ local function c_GiantSlime(world, map)
         inst.shootCd = shootCooldownBase * cooldownScale(inst)
     end
 
-    -- ── Boss "brain": decision / rest / enraged sub-states ──────────────
+    --  Boss "brain": decision / rest / enraged sub-states 
     local function updateAlert(inst, dt)
         if inst.summonCd > 0 then inst.summonCd = inst.summonCd - dt end
         if inst.shootCd  > 0 then inst.shootCd  = inst.shootCd  - dt end
@@ -219,7 +219,7 @@ local function c_GiantSlime(world, map)
         end
     end
 
-    -- ── Bullet update ────────────────────────────────────────────────────
+    --  Bullet update 
     local function updateBullets(dt)
         for i = #giantSlime.bullets, 1, -1 do
             local b = giantSlime.bullets[i]
@@ -273,7 +273,7 @@ local function c_GiantSlime(world, map)
         end
     end
 
-    -- ── Death drops ──────────────────────────────────────────────────────
+    --  Death drops 
     function giantSlime:onDeath(inst)
         for i = 1, dropCount do
             local angle = math.random() * math.pi * 2
@@ -303,7 +303,7 @@ local function c_GiantSlime(world, map)
         end
     end
 
-    -- ── Update / Draw ───────────────────────────────────────────────────
+    --  Update / Draw ─
     function giantSlime:update(dt)
         updateBullets(dt)
 

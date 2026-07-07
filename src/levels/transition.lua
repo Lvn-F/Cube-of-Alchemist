@@ -5,7 +5,7 @@ transitions.canUse = nil
 
 local destMap = {
     toBossRoom = "map/bossroom",
-    toHome     = "map/tile",
+    toHome     = "map/home",
 }
 
 function transitions:init(currentMap)
@@ -51,6 +51,6 @@ end
 function transitions:draw()
     if self.canUse then
         love.graphics.setColor(1, 1, 1, 1)
-        love.graphics.print("Press F to move", player.x - 40, player.y - 60, nil, 2, 2)
+        love.graphics.print("Press F to move", player.x - 40, player.y - 60, nil, 1.5, 1.5, -24)
     end
 end

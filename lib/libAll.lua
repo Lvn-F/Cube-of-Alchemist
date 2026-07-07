@@ -6,5 +6,6 @@ function libAll()
     vector = require "lib/hump/vector"
     cameraa = require 'lib/hump/camera'
     drawSort = require 'lib/drawSort'
+    require 'lib/tesound'
     cam = camera()
 end

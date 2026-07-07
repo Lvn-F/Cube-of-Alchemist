@@ -47,7 +47,7 @@ function PlayState:draw()
             drawBefore()
         love.graphics.pop()
 
-        herbs:draw()
+        collect:draw()
         slime:drawDrops()
         -- if giantSlime.hp >= 0 then
             giantSlime:draw()
@@ -104,12 +104,13 @@ function PlayState:keypressed(key)
             GS.push(crafting)
 
         elseif key == 'space' and player.state == 1 then
+            dj.play(sound.dash, "stream")
             player.state = 3
         end
     end
 
     if key == 'f' then
-        herbs:tryLoot(inv)
+        collect:tryLoot(inv)
         slime:tryLoot(inv)
         giantSlime:tryLoot(inv)
         if transitions.canUse then

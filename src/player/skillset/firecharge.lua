@@ -49,6 +49,7 @@ local function c_Firecharge(world)
             self.collider:setLinearVelocity(0, 0)
             self.collider:destroy()
             self.collider = nil
+            dj.play(sound.explode, "static")
 
             self.anim = Firecharges.animate.burst:clone()
             -- onLoop fires once the (non-repeating-in-practice) animation
@@ -151,7 +152,7 @@ local function c_Firecharge(world)
                 end
                 local px, py = player.x, player.y
                 local dir = toMouseVector(px, py)
-
+                dj.play(sound.fire, "static")
                 S_firecharge(px, py, dir)
 
                 -- reset charge animation, ready for the next cast
