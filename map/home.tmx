@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="256">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="259">
  <editorsettings>
   <export target="home.lua" format="lua"/>
  </editorsettings>
@@ -533,10 +533,16 @@
   <object id="248" name="player" x="393.25" y="263.5">
    <point/>
   </object>
-  <object id="255" name="player" x="235.75" y="256">
+  <object id="255" name="player" x="339.75" y="217.75">
    <point/>
   </object>
   <object id="252" x="185.75" y="242.25">
+   <point/>
+  </object>
+  <object id="256" name="respawn" x="336.25" y="190.75">
+   <point/>
+  </object>
+  <object id="257" name="move" x="699.25" y="248">
    <point/>
   </object>
  </objectgroup>
