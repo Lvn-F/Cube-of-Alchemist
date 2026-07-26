@@ -19,10 +19,3 @@ function love.load()
     GS.registerEvents()
 end
 
--- function love.load()
-    
--- end
-
--- function love.update(dt)
-    
--- end
