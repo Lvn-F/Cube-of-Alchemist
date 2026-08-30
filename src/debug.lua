@@ -10,7 +10,7 @@ function debug:player()
     love.graphics.print("Frame : " .. love.timer.getFPS(), 1130, 125, nil, 2)
     love.graphics.print("speed : " .. player.speed, 1130, 150, nil, 2)
     love.graphics.print('Health : ' .. playerStat.health, 1130, 175, nil, 2)
-    -- local time = 0
+    -- local time = 0 
     -- local timeS = 0
     -- love.graphics.print("Time : " .. time .."(dt), " .. timeS .."(s)", 50, 175, nil, 2)
     love.graphics.print("isCharging : " .. tostring(player.isCharging),  1130, 200, nil, 2)
