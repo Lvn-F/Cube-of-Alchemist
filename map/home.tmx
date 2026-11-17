@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="259">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="27" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="260">
  <editorsettings>
   <export target="home.lua" format="lua"/>
  </editorsettings>
@@ -529,7 +529,7 @@
    <point/>
   </object>
   <object id="247" name="toBossRoom" x="718.667" y="226" width="31.3333" height="51.3333"/>
-  <object id="254" name="toBossRoom" x="210.667" y="103" width="31.3333" height="28.3333"/>
+  <object id="254" name="toBossRoom" x="63.667" y="38.75" width="31.3333" height="28.3333"/>
   <object id="248" name="player" x="393.25" y="263.5">
    <point/>
   </object>
@@ -543,6 +543,9 @@
    <point/>
   </object>
   <object id="257" name="move" x="699.25" y="248">
+   <point/>
+  </object>
+  <object id="259" name="move" x="79" y="74.25">
    <point/>
   </object>
  </objectgroup>

@@ -218,12 +218,12 @@ local function drawEquippedRow()
     -- Equiped and label
     drawEquippedSlot(
         layout.mainSlot, mainKey,
-        "Main",
+        "Main(L-CLick)",
         COL.mainBorder, COL.mainBg, COL.mainSymbol, COL.mainName
     )
     drawEquippedSlot(
         layout.secondSlot, secondKey,
-        "Aspect",
+        "Aspect(R-Click)",
         COL.secBorder, COL.secBg, COL.secSymbol, COL.secName
     )
 end
@@ -384,7 +384,7 @@ function SpellSelect:draw()
     -- Title
     love.graphics.setFont(titleFont)
     setColor(COL.textMain, a)
-    love.graphics.printf("Select Spell", px, py + 20, pw, "center")
+    love.graphics.printf("Select and Combine Spell", px, py + 20, pw, "center")
 
     love.graphics.setFont(smallFont)
     setColor(COL.textHint, a)

@@ -15,7 +15,7 @@ cam.smoother = cameraa.smooth.damped(8)
 function PlayState:update(dt)
     world:update(dt)
     updateGame(dt)
-
+    
     cam:lookAt(player.x, player.y)
     local scale = 3
     local w = love.graphics.getWidth()
